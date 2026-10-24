@@ -1,22 +1,78 @@
 {
-  "status": "Unranked screening pool; financial extraction and top-20 selection pending",
+  "status": "Provisional core 20 plus four selected additional cases; financial extraction and revenue ranking verification pending",
   "selection_rule": "See docs/methodology.md; verify further candidates at the cut-off",
   "candidates": [
-    "Delta Air Lines", "United Airlines Holdings", "American Airlines Group",
-    "Lufthansa Group", "Emirates Group", "International Airlines Group",
-    "Air France-KLM", "Southwest Airlines", "China Southern Airlines",
-    "Qatar Airways Group", "Air China", "Turkish Airlines",
-    "China Eastern Airlines", "Air Canada", "ANA Holdings",
-    "Ryanair Holdings", "Qantas Group", "Singapore Airlines Group",
-    "Korean Air", "LATAM Airlines Group", "Cathay Pacific",
-    "Alaska Air Group", "easyJet", "Japan Airlines", "IndiGo",
-    "Saudia Group", "Ethiopian Airlines Group", "Hainan Airlines"
+    "Delta Air Lines",
+    "United Airlines Holdings",
+    "American Airlines Group",
+    "Lufthansa Group",
+    "Emirates Group",
+    "International Airlines Group",
+    "Air France-KLM",
+    "Southwest Airlines",
+    "China Southern Airlines",
+    "Qatar Airways Group",
+    "Air China",
+    "Turkish Airlines",
+    "China Eastern Airlines",
+    "Air Canada",
+    "ANA Holdings",
+    "Ryanair Holdings",
+    "Qantas Group",
+    "Singapore Airlines Group",
+    "Korean Air",
+    "LATAM Airlines Group",
+    "Cathay Pacific",
+    "Alaska Air Group",
+    "easyJet",
+    "Japan Airlines",
+    "IndiGo",
+    "Saudia Group",
+    "Ethiopian Airlines Group",
+    "Hainan Airlines"
   ],
-  "additional_case_studies": ["JetBlue Airways"],
+  "additional_case_studies": [
+    "easyJet",
+    "LATAM Airlines Group",
+    "Alaska Air Group",
+    "JetBlue Airways"
+  ],
   "perimeter_checks": [
     "Avoid separately counting British Airways and Iberia within IAG.",
     "Verify the acquisition perimeter for Korean Air and Alaska Air Group for the reporting period.",
     "Separate airline and other businesses where disclosures permit; document any group revenue used.",
     "Do not silently replace an eligible large group with a smaller group merely because data are easier to obtain."
-  ]
+  ],
+  "provisional_core_20": [
+    "Delta Air Lines",
+    "United Airlines Holdings",
+    "American Airlines Group",
+    "Lufthansa Group",
+    "Emirates Group",
+    "International Airlines Group",
+    "Air France-KLM",
+    "Southwest Airlines",
+    "China Southern Airlines",
+    "Qatar Airways Group",
+    "Air China",
+    "Turkish Airlines",
+    "China Eastern Airlines",
+    "Air Canada",
+    "ANA Holdings",
+    "Ryanair Holdings",
+    "Qantas Group",
+    "Singapore Airlines Group",
+    "Korean Air",
+    "Cathay Pacific"
+  ],
+  "case_study_comparisons": [
+    {
+      "groups": [
+        "Alaska Air Group",
+        "JetBlue Airways"
+      ],
+      "purpose": "User-requested competitor comparison: gearing, cost structure, liquidity and refinancing exposure"
+    }
+  ],
+  "counting_rule": "Each consolidated group is counted once. Additional case-study designation is retained if a group qualifies for the verified top 20."
 }
