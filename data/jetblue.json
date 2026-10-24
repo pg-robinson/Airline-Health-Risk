@@ -1,0 +1,38 @@
+{
+  "entity": "JetBlue Airways Corporation",
+  "currency": "USD",
+  "unit": "million",
+  "balance_sheet_date": "2026-06-30",
+  "earnings_period_start": "2026-01-01",
+  "earnings_period_end": "2026-06-30",
+  "accessed": "2026-10-24",
+  "sources": {
+    "results": {
+      "url": "https://ir.jetblue.com/news/news-details/2026/JetBlue-Announces-Second-Quarter-2026-Results/default.aspx",
+      "published": "2026-07-28"
+    },
+    "filing": {
+      "url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm"
+    }
+  },
+  "observations": {
+    "debt": {"value": 8478, "source": "results", "locator": "Selected consolidated balance sheet: Total debt"},
+    "equity": {"value": 1587, "source": "results", "locator": "Selected consolidated balance sheet: Stockholders' equity"},
+    "cash": {"value": 1656, "source": "results", "locator": "Selected consolidated balance sheet: Cash and cash equivalents"},
+    "revenue": {"value": 4937, "source": "results", "locator": "Statements of operations: six months 2026, Total operating revenues"},
+    "ebit": {"value": -365, "source": "results", "locator": "Statements of operations: six months 2026, Operating income (loss)"},
+    "interest": {"value": 291, "source": "results", "locator": "Statements of operations: six months 2026, Interest expense; positive expense magnitude"},
+    "fuel": {"value": 1484, "source": "results", "locator": "Statements of operations: six months 2026, Aircraft fuel"},
+    "labour": {"value": 1771, "source": "results", "locator": "Statements of operations: six months 2026, Salaries wages and benefits"},
+    "operating_costs": {"value": 5302, "source": "results", "locator": "Statements of operations: six months 2026, Total operating expenses"},
+    "cfo": {"value": -35, "source": "filing", "locator": "Cash-flow statement page 9: Net cash used in operating activities"},
+    "capex": {"value": 348, "source": "filing", "locator": "Cash-flow statement page 9: Capital expenditures; positive cash outflow magnitude"},
+    "aircraft_deposits": {"value": 27, "source": "filing", "locator": "Cash-flow statement page 9: Pre-delivery deposits; positive cash outflow magnitude"}
+  },
+  "limitations": [
+    "Debt is the reported selected balance-sheet measure, not a normalised lease-inclusive debt measure.",
+    "Cash subtraction is not a complete eligible-liquidity analysis.",
+    "Earnings are half-year, not annual or trailing twelve months.",
+    "No verified hedge fraction or full cash-bridge inputs are supplied."
+  ]
+}
