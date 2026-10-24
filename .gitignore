@@ -6,3 +6,4 @@ raw/
 *.xlsx
 *.xls
 *.pdf
+*.sqlite

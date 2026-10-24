@@ -2,11 +2,26 @@
 
 **Research question:** Which major airline groups can absorb a sustained rise in fuel costs, weaker demand and tighter financing without exhausting their available funding?
 
-Research design and JetBlue pilot, prepared 24 October 2026. **The global top-20 comparison is not yet populated or ranked.**
+**Annual reporting database now populated:** 24 airline groups, 416 sourced financial observations, and a separate Emirates airline-only supplement. Prepared 24 October 2026. The revenue-based top 20 remains provisional; current-risk assessment and full debt-note extraction are incomplete.
 
 This project examines gearing, cost structure, debt maturity and liquidity using public company disclosures. The intended coverage is 20 major passenger airline groups selected by revenue, plus four additional case studies: **easyJet, LATAM Airlines Group, Alaska Air Group and JetBlue Airways**. The provisional scope is 24 distinct groups; the revenue-based top 20 remains subject to verification. It includes listed and state-owned airlines where sufficiently comparable disclosures exist.
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
+
+## Open the database
+
+- [Annual comparison](database/annual_comparison.csv): each airline’s figures in its reporting currency.
+- [Source-linked observations](database/observations.csv): evidence and caveats for every figure.
+- [Coverage and gaps](database/coverage.md): what is populated for each airline.
+- [Database guide](docs/database-guide.md): definitions, accounting differences and reproducibility.
+- [SQL database export](database/database.sql): import into SQLite or rebuild from the curated JSON.
+
+```sh
+python3 build_database.py
+python3 -m unittest discover -s tests
+```
+
+The build creates `database/airline_financials.sqlite` and refreshes the exports. Missing observations remain blank. Debt and leases are combined without double counting; ratios with non-positive equity are withheld. The database preserves original currencies and reporting periods.
 
 ## Read the research
 
@@ -29,7 +44,7 @@ The calculation reads the public-source observations in `data/jetblue.json`. It 
 ## Remaining research
 
 1. Verify the candidate universe and rank eligible consolidated groups using the selection rule.
-2. Extract full-year and latest interim statements, lease notes, maturities, liquidity restrictions and hedges for each selected group.
+2. Complete the flagged annual gaps and extract latest interim statements, lease notes, maturities, liquidity restrictions and hedges for each selected group.
 3. Reconcile accounting definitions and build a monthly cash bridge for each airline.
 4. Produce the comparative risk map and explain each risk designation with evidence.
 5. Review all references and calculations before describing the project as a completed sector study.
