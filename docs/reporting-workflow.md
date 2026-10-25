@@ -29,6 +29,6 @@ The existing pilot and database validation use the standard library. The new rep
 6. Explain what evidence could change the conclusion.
 7. Provide sources and an explicit work queue.
 
-The current edition is an annual baseline screen. It does not make the top-20 revenue ranking final or assign current credit ratings. The next edition should first ingest matching interim periods, debt and lease maturity notes, unrestricted liquidity and fuel hedges. Keep those facts separate from annual selection data. Use an explicit cash-flow bridge before discussing survival horizons.
+The second edition adds a separate dated current-evidence layer for the four case studies and a 24-group research queue. It does not make the top-20 revenue ranking final or assign current credit ratings. Complete the remaining interim periods, debt and lease notes, unrestricted liquidity and fuel hedges before rating. Keep those facts separate from annual selection data. Use an explicit cash-flow bridge before discussing survival horizons.
 
 For each new edition, log source additions and corrections separately from methodology changes. Re-execute, review source links and missingness, inspect exported charts, and then publish both the saved notebook and the HTML reading copy. Do not silently change the historical cutoff when updating a single airline.

@@ -22,7 +22,7 @@ class ReportingTests(unittest.TestCase):
             with self.assertRaises(ValueError):fuel_scenario(self.frame.loc['jetblue'],shock)
         with self.assertRaises(ValueError):fuel_scenario(self.frame.loc['ana'],.1)
     def test_cfo_capex_not_filled(self):
-        self.assertTrue(self.frame.loc['korean','cfo_less_capex']!=self.frame.loc['korean','cfo_less_capex'])
+        self.assertTrue(self.frame.loc['emirates','cfo_less_capex']!=self.frame.loc['emirates','cfo_less_capex'])
     def test_ratios_not_cross_currency(self):
         self.assertAlmostEqual(self.frame.loc['alaska','debt_to_assets_pct'],6893/20361*100)
         self.assertAlmostEqual(self.frame.loc['jetblue','fuel_to_revenue_pct'],2057/9062*100)

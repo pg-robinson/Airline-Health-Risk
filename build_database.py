@@ -90,7 +90,8 @@ def build(destination=None):
     hashes={r['source_url']:r.get('source_sha256') for r in data['reports']}
     urls=sorted({o['source_url'] for o in data['observations']}|{m['source_url'] for m in data['debt_maturities']})
     sources={u:i+1 for i,u in enumerate(urls)}
-    con.executemany('INSERT INTO sources VALUES(?,?,?,?)',[(i,u,data['metadata']['source_cutoff'],hashes.get(u)) for u,i in sources.items()])
+    retrieved={u:max(o.get('retrieved_on',data['metadata']['source_cutoff']) for o in data['observations']+data['debt_maturities'] if o['source_url']==u) for u in urls}
+    con.executemany('INSERT INTO sources VALUES(?,?,?,?)',[(i,u,retrieved[u],hashes.get(u)) for u,i in sources.items()])
     metrics=sorted({o['metric'] for o in data['observations']})
     for m in metrics:
         if m not in DEFINITIONS:raise ValueError('Missing definition: '+m)
@@ -108,6 +109,8 @@ def build(destination=None):
         gaps=[m for m in CORE if combined.get(m) is None]
         con.executemany('INSERT INTO coverage_gaps VALUES(?,?,?)',[(rid,m,'not_extracted_or_not_comparable; not zero') for m in gaps])
         wide.append(dict(report_id=rid,entity=r['entity'],cohort=r['cohort'],currency=r['currency'],period_end=r['period_end'],perimeter=r['perimeter'],**values,**derived,core_fields_missing='; '.join(gaps)))
+    from risk_reporting import build_risk_tables
+    build_risk_tables(con, dest, data)
     con.commit()
     assert not con.execute('PRAGMA foreign_key_check').fetchall()
     (dest/'database.sql').write_text('\n'.join(con.iterdump())+'\n')

@@ -1,0 +1,1937 @@
+{
+  "metadata": {
+    "version": "0.2.0",
+    "research_cutoff": "2026-10-25",
+    "status": "Partial risk evidence; no ratings assigned"
+  },
+  "reports": [
+    {
+      "id": "jetblue-2026h1",
+      "airline_id": "jetblue",
+      "period_end": "2026-06-30",
+      "period_start": "2026-01-01",
+      "months": 6,
+      "currency": "USD",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm",
+      "published_on": "2026-07-28",
+      "retrieved_on": "2026-10-25",
+      "audit_status": "unaudited issuer reporting",
+      "notes": "Latest verified interim at cutoff; Q3 earnings scheduled October27.",
+      "perimeter": "consolidated group",
+      "report_kind": "interim_statements",
+      "prior_period_start": "2025-01-01",
+      "prior_period_end": "2025-06-30"
+    },
+    {
+      "id": "alaska-2026q3",
+      "airline_id": "alaska",
+      "period_end": "2026-09-30",
+      "period_start": "2026-01-01",
+      "months": 9,
+      "currency": "USD",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/766421/000076642126000046/ex99110202026earningsrelea.htm",
+      "published_on": "2026-10-20",
+      "retrieved_on": "2026-10-25",
+      "audit_status": "unaudited issuer reporting",
+      "notes": "Latest verified results release; full debt-note ladder retained separately at June30, not relabelled September.",
+      "perimeter": "consolidated group",
+      "report_kind": "interim_statements",
+      "prior_period_start": "2025-01-01",
+      "prior_period_end": "2025-09-30"
+    },
+    {
+      "id": "alaska-2026h1-notes",
+      "airline_id": "alaska",
+      "period_end": "2026-06-30",
+      "period_start": "2026-01-01",
+      "months": 6,
+      "currency": "USD",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/766421/000076642126000041/alk-20260630.htm",
+      "published_on": null,
+      "retrieved_on": "2026-10-25",
+      "audit_status": "unaudited issuer reporting",
+      "notes": "Debt principal and funding notes are June30 snapshots; not September balances. Exact filing publication date remains to be verified.",
+      "perimeter": "consolidated group",
+      "report_kind": "notes",
+      "prior_period_start": "2025-01-01",
+      "prior_period_end": "2025-06-30"
+    },
+    {
+      "id": "latam-2026h1",
+      "airline_id": "latam",
+      "period_end": "2026-06-30",
+      "period_start": "2026-01-01",
+      "months": 6,
+      "currency": "USD",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm",
+      "published_on": "2026-08-04",
+      "retrieved_on": "2026-10-25",
+      "audit_status": "unaudited issuer reporting",
+      "notes": "Issuer release uses an adapted US-format income statement; statutory reconciliation retained. Full IFRS debt/lease reconciliation pending.",
+      "perimeter": "consolidated group",
+      "report_kind": "interim_statements",
+      "prior_period_start": "2025-01-01",
+      "prior_period_end": "2025-06-30"
+    },
+    {
+      "id": "easyjet-2026h1",
+      "airline_id": "easyjet",
+      "period_end": "2026-03-31",
+      "period_start": "2025-10-01",
+      "months": 6,
+      "currency": "GBP",
+      "source_url": "https://data.fca.org.uk/artefacts/NSM/MFN/b5400e4e-e8f2-48a1-aadd-fdecdb855799.html",
+      "published_on": "2026-05-21",
+      "retrieved_on": "2026-10-25",
+      "audit_status": "unaudited interim financial statements, independent review",
+      "notes": "Full interim statements. A later June trading update exists; this March balance sheet is not a latest-quarter position.",
+      "perimeter": "consolidated group",
+      "report_kind": "interim_statements",
+      "prior_period_start": "2024-10-01",
+      "prior_period_end": "2025-03-31"
+    },
+    {
+      "id": "easyjet-2026q3-trading",
+      "airline_id": "easyjet",
+      "period_end": "2026-06-30",
+      "period_start": "2026-04-01",
+      "months": 3,
+      "currency": "GBP",
+      "source_url": "https://www.investegate.co.uk/announcement/mfn/easyjet--ezj/trading-update-for-the-quarter-ended-30-june-/9682899",
+      "published_on": "2026-07-23",
+      "retrieved_on": "2026-10-25",
+      "audit_status": "unaudited issuer reporting",
+      "notes": "Issuer company announcement distributed through MFN, reproduced by Investegate. Quarter-only trading update, not full interim accounts.",
+      "report_kind": "trading_update",
+      "perimeter": "consolidated group",
+      "prior_period_start": "2025-04-01",
+      "prior_period_end": "2025-06-30"
+    }
+  ],
+  "observations": [
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "assets",
+      "value": 16371,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "equity",
+      "value": 1587,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "cash",
+      "value": 1656,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "short_term_investments",
+      "value": 364,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "long_term_investments",
+      "value": 148,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "restricted_cash_current",
+      "value": 12,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "restricted_cash_noncurrent",
+      "value": 251,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "debt_finance_leases_current",
+      "value": 477,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "debt_finance_leases_noncurrent",
+      "value": 8001,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "operating_leases_current",
+      "value": 97,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "operating_leases_noncurrent",
+      "value": 811,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q pp5\u20136 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "revenue",
+      "value": 4937,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "operating_expenses",
+      "value": 5302,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "operating_profit",
+      "value": -365,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "fuel_cost",
+      "value": 1484,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "staff_cost",
+      "value": 1771,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "depreciation_amortisation",
+      "value": 362,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "interest_expense",
+      "value": 291,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "net_profit",
+      "value": -566,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "revenue",
+      "value": 4496,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "operating_expenses",
+      "value": 4664,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "operating_profit",
+      "value": -168,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "fuel_cost",
+      "value": 1015,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "staff_cost",
+      "value": 1714,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "depreciation_amortisation",
+      "value": 339,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "interest_expense",
+      "value": 295,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "net_profit",
+      "value": -282,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p7 operations, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "cfo",
+      "value": -35,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p9 cash flow, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "capex",
+      "value": 375,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p9 cash flow, six-month columns",
+      "notes": "348 capital expenditure +27 pre-delivery deposits; aligns annual capex including deposits."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "debt_repayments",
+      "value": 570,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p9 cash flow, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "new_debt_proceeds",
+      "value": 495,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p9 cash flow, six-month columns",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "cfo",
+      "value": -1,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p9 cash flow, six-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "prior_ytd",
+      "metric": "capex",
+      "value": 496,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p9 cash flow, six-month2025 comparative",
+      "notes": "473 capital expenditure +23 pre-delivery deposits."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "liquidity_excluding_facilities",
+      "value": 2200,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p34 liquidity",
+      "notes": "Issuer rounded $2.2bn unrestricted cash and investments; exact cash +investment balances total2168."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "period": "current",
+      "metric": "undrawn_revolver",
+      "value": 600,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q p34 liquidity",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "revenue",
+      "value": 11673,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "operating_expenses",
+      "value": 12038,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "operating_profit",
+      "value": -365,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "fuel_cost",
+      "value": 3315,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "staff_cost",
+      "value": 3768,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "staff_incentives",
+      "value": 163,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "depreciation_amortisation",
+      "value": 627,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "interest_expense",
+      "value": 259,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "net_profit",
+      "value": -416,
+      "unit": "currency_million",
+      "source_locator": "Release p5 annual-to-date operations",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "revenue",
+      "value": 10607,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "operating_expenses",
+      "value": 10379,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "operating_profit",
+      "value": 228,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "fuel_cost",
+      "value": 2142,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "staff_cost",
+      "value": 3518,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "staff_incentives",
+      "value": 194,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "depreciation_amortisation",
+      "value": 596,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "interest_expense",
+      "value": 202,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "prior_ytd",
+      "metric": "net_profit",
+      "value": 79,
+      "unit": "currency_million",
+      "source_locator": "Release p5 nine-month2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "assets",
+      "value": 21029,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "equity",
+      "value": 3530,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "cash",
+      "value": 835,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "short_term_investments",
+      "value": 1396,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "restricted_cash_current",
+      "value": 34,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "debt_finance_leases_current",
+      "value": 890,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "debt_finance_leases_noncurrent",
+      "value": 5269,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "operating_leases_current",
+      "value": 222,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "operating_leases_noncurrent",
+      "value": 1138,
+      "unit": "currency_million",
+      "source_locator": "Release p6 balance sheets",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "cfo",
+      "value": 755,
+      "unit": "currency_million",
+      "source_locator": "Release p7 nine-month cash flow",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "capex",
+      "value": 965,
+      "unit": "currency_million",
+      "source_locator": "Release p7 nine-month cash flow",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "restricted_cash_noncurrent",
+      "value": 45,
+      "unit": "currency_million",
+      "source_locator": "Release p7 nine-month cash flow",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "liquidity_including_facilities",
+      "value": 3300,
+      "unit": "currency_million",
+      "source_locator": "Release liquidity updates",
+      "notes": "Rounded issuer total; includes undrawn facilities, unlike JetBlue2200 excluding them."
+    },
+    {
+      "report_id": "alaska-2026q3",
+      "period": "current",
+      "metric": "unencumbered_assets",
+      "value": 20000,
+      "unit": "currency_million",
+      "source_locator": "Release liquidity updates",
+      "notes": "Approximate issuer valuation including loyalty assets; not cash or committed proceeds."
+    },
+    {
+      "report_id": "alaska-2026h1-notes",
+      "period": "current",
+      "metric": "undrawn_revolver",
+      "value": 1100,
+      "unit": "currency_million",
+      "source_locator": "Form10-Q note4 p15",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "revenue",
+      "value": 8333.43,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "operating_expenses",
+      "value": 7303.784,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "operating_profit",
+      "value": 1029.646,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "fuel_cost",
+      "value": 2749.119,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "staff_cost",
+      "value": 1108.761,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "depreciation_amortisation",
+      "value": 978.315,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "net_profit",
+      "value": 695.605,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated income statement and reconciliation; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "prior_ytd",
+      "metric": "revenue",
+      "value": 6689.643,
+      "unit": "currency_million",
+      "source_locator": "Release prior H1 income statement and statutory expense reconciliation",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "prior_ytd",
+      "metric": "operating_expenses",
+      "value": 5699.765,
+      "unit": "currency_million",
+      "source_locator": "Release prior H1 income statement and statutory expense reconciliation",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "prior_ytd",
+      "metric": "operating_profit",
+      "value": 989.878,
+      "unit": "currency_million",
+      "source_locator": "Release prior H1 income statement and statutory expense reconciliation",
+      "notes": "Revenue less unadjusted operating expenses; not the adjusted subtotal."
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "prior_ytd",
+      "metric": "fuel_cost",
+      "value": 1860.766,
+      "unit": "currency_million",
+      "source_locator": "Release prior H1 income statement and statutory expense reconciliation",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "assets",
+      "value": 19648.042,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "equity",
+      "value": 1986.265,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "cash",
+      "value": 2650.857,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "other_financial_liabilities_current",
+      "value": 992.016,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "other_financial_liabilities_noncurrent",
+      "value": 8036.085,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "issuer_debt",
+      "value": 9025.248,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": "Issuer gross accounting debt including leases. Other financial liabilities total9028.101; difference2.853 not reconciled, so no comparable debt/equity derived."
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "liquidity_including_facilities",
+      "value": 4225.857,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "undrawn_revolver",
+      "value": 1575,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated financial position / liquidity table; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "cfo",
+      "value": 1542.912,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated cash flows; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "capex",
+      "value": 735.925,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated cash flows; US$000 divided by1000",
+      "notes": "673.760 property/equipment +62.165 intangibles."
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "interest_paid",
+      "value": 302.044,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated cash flows; US$000 divided by1000",
+      "notes": "Financing cash-flow classification."
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "current",
+      "metric": "lease_payments",
+      "value": 244.977,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated cash flows; US$000 divided by1000",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "prior_ytd",
+      "metric": "cfo",
+      "value": 1540.971,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated cash flows; H1 2025 comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "latam-2026h1",
+      "period": "prior_ytd",
+      "metric": "capex",
+      "value": 981.986,
+      "unit": "currency_million",
+      "source_locator": "Release consolidated cash flows; H1 2025 comparative",
+      "notes": "934.050 property/equipment +47.936 intangibles."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "revenue",
+      "value": 3954,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "operating_expenses",
+      "value": 4487,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": "Revenue less statutory operating loss; net of other operating income5."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "operating_profit",
+      "value": -533,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "fuel_cost",
+      "value": 982,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "crew_cost",
+      "value": 661,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": "Crew only; not total employee costs."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "depreciation_amortisation",
+      "value": 399,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "finance_costs",
+      "value": 68,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "net_profit",
+      "value": -377,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "revenue",
+      "value": 3534,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "operating_expenses",
+      "value": 3910,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "operating_profit",
+      "value": -376,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "fuel_cost",
+      "value": 949,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "crew_cost",
+      "value": 548,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "depreciation_amortisation",
+      "value": 364,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "finance_costs",
+      "value": 82,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "net_profit",
+      "value": -297,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated income statement, prior Total columns",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "assets",
+      "value": 12737,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": "7084 non-current +5653 current assets."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "equity",
+      "value": 3657,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "cash",
+      "value": 2288,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "short_term_investments",
+      "value": 1158,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "borrowings_current",
+      "value": 16,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "borrowings_noncurrent",
+      "value": 2001,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "leases_current",
+      "value": 256,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "leases_noncurrent",
+      "value": 739,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of financial position",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "cfo",
+      "value": 458,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of cash flows",
+      "notes": "Includes100 dividends paid and net financing cash items in operating activities."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "capex",
+      "value": 577,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated statement of cash flows",
+      "notes": "532 property/equipment +45 intangible purchases."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "cfo",
+      "value": 790,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated cash flows, prior comparative",
+      "notes": "Includes91 dividends paid in operating activities."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "prior_ytd",
+      "metric": "capex",
+      "value": 529,
+      "unit": "currency_million",
+      "source_locator": "Condensed consolidated cash flows, prior comparative",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "liquidity_including_facilities",
+      "value": 4700,
+      "unit": "currency_million",
+      "source_locator": "Liquidity discussion",
+      "notes": "Rounded headline; includes undrawn facilities."
+    },
+    {
+      "report_id": "easyjet-2026h1",
+      "period": "current",
+      "metric": "undrawn_revolver",
+      "value": 1300,
+      "unit": "currency_million",
+      "source_locator": "Liquidity discussion",
+      "notes": "Rounded GBP equivalent of USD1.7bn facility."
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "current",
+      "metric": "revenue",
+      "value": 2983,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, quarter-only",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "current",
+      "metric": "fuel_cost",
+      "value": 732,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, quarter-only",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "current",
+      "metric": "headline_operating_profit",
+      "value": 104,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, quarter-only",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "current",
+      "metric": "profit_before_tax",
+      "value": 85,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, quarter-only",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "current",
+      "metric": "cash_and_investments",
+      "value": 3600,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, quarter-only",
+      "notes": "Rounded GBP3.6bn; not cash alone."
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "current",
+      "metric": "issuer_net_cash",
+      "value": 661,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, quarter-only",
+      "notes": "Issuer definition; not recomputed from rounded cash headline."
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "prior_ytd",
+      "metric": "revenue",
+      "value": 2918,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, prior quarter",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "prior_ytd",
+      "metric": "fuel_cost",
+      "value": 627,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, prior quarter",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "prior_ytd",
+      "metric": "headline_operating_profit",
+      "value": 293,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, prior quarter",
+      "notes": ""
+    },
+    {
+      "report_id": "easyjet-2026q3-trading",
+      "period": "prior_ytd",
+      "metric": "profit_before_tax",
+      "value": 286,
+      "unit": "currency_million",
+      "source_locator": "Financial summary, prior quarter",
+      "notes": ""
+    }
+  ],
+  "maturity_schedules": [
+    {
+      "report_id": "jetblue-2026h1",
+      "kind": "debt_finance_lease_maturities",
+      "basis": "carrying_net_issuance_costs",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 236
+        },
+        {
+          "label": "2027",
+          "value": 478
+        },
+        {
+          "label": "2028",
+          "value": 582
+        },
+        {
+          "label": "2029",
+          "value": 1835
+        },
+        {
+          "label": "2030",
+          "value": 656
+        },
+        {
+          "label": "thereafter",
+          "value": 4691
+        }
+      ],
+      "reported_total": 8478,
+      "source_locator": "Form10-Q note3 p13",
+      "notes": "Excludes operating leases and interest. Not identical to principal face value."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "kind": "debt_finance_lease_cash_payments",
+      "basis": "contractual_including_interest",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 529
+        },
+        {
+          "label": "2027",
+          "value": 1043
+        },
+        {
+          "label": "2028",
+          "value": 1117
+        },
+        {
+          "label": "2029",
+          "value": 2314
+        },
+        {
+          "label": "2030",
+          "value": 1040
+        },
+        {
+          "label": "thereafter",
+          "value": 5268
+        }
+      ],
+      "reported_total": 11311,
+      "source_locator": "Form10-Q contractual obligations p36",
+      "notes": "Floating interest estimated using June30 rates. Do not add to carrying-value maturity schedule."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "kind": "operating_lease_cash_payments",
+      "basis": "contractual_undiscounted",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 81
+        },
+        {
+          "label": "2027",
+          "value": 146
+        },
+        {
+          "label": "2028",
+          "value": 111
+        },
+        {
+          "label": "2029",
+          "value": 89
+        },
+        {
+          "label": "2030",
+          "value": 84
+        },
+        {
+          "label": "thereafter",
+          "value": 937
+        }
+      ],
+      "reported_total": 1448,
+      "source_locator": "Form10-Q contractual obligations p36",
+      "notes": "Includes JFK Terminal5, aircraft/spare engines and corporate office."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "kind": "aircraft_purchase_commitments",
+      "basis": "contractual",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 337
+        },
+        {
+          "label": "2027",
+          "value": 383
+        },
+        {
+          "label": "2028",
+          "value": 525
+        },
+        {
+          "label": "2029",
+          "value": 444
+        },
+        {
+          "label": "2030",
+          "value": 338
+        },
+        {
+          "label": "thereafter",
+          "value": 3444
+        }
+      ],
+      "reported_total": 5471,
+      "source_locator": "Form10-Q contractual obligations p36",
+      "notes": "Includes aircraft expected to be sold following delivery."
+    },
+    {
+      "report_id": "jetblue-2026h1",
+      "kind": "other_commitments",
+      "basis": "contractual",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 211
+        },
+        {
+          "label": "2027",
+          "value": 397
+        },
+        {
+          "label": "2028",
+          "value": 433
+        },
+        {
+          "label": "2029",
+          "value": 289
+        },
+        {
+          "label": "2030",
+          "value": 313
+        },
+        {
+          "label": "thereafter",
+          "value": 7
+        }
+      ],
+      "reported_total": 1650,
+      "source_locator": "Form10-Q contractual obligations p36",
+      "notes": "Mainly maintenance, infrastructure and IT."
+    },
+    {
+      "report_id": "alaska-2026h1-notes",
+      "kind": "debt_principal",
+      "basis": "principal_excluding_interest",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 171
+        },
+        {
+          "label": "2027",
+          "value": 780
+        },
+        {
+          "label": "2028",
+          "value": 345
+        },
+        {
+          "label": "2029",
+          "value": 893
+        },
+        {
+          "label": "2030",
+          "value": 284
+        },
+        {
+          "label": "thereafter",
+          "value": 3650
+        }
+      ],
+      "reported_total": 6123,
+      "source_locator": "Form10-Q note4 p15",
+      "notes": "Acquisition fair-value adjustments mean principal does not equal carrying debt. Finance/operating lease cash schedules not yet extracted."
+    },
+    {
+      "report_id": "alaska-2026h1-notes",
+      "kind": "aircraft_purchase_commitments",
+      "basis": "contractual",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 626
+        },
+        {
+          "label": "2027",
+          "value": 1614
+        },
+        {
+          "label": "2028",
+          "value": 1666
+        },
+        {
+          "label": "2029",
+          "value": 1168
+        },
+        {
+          "label": "2030",
+          "value": 1050
+        },
+        {
+          "label": "thereafter",
+          "value": 4264
+        }
+      ],
+      "reported_total": 10388,
+      "source_locator": "Form10-Q note6 p16",
+      "notes": ""
+    },
+    {
+      "report_id": "alaska-2026h1-notes",
+      "kind": "capacity_purchase_commitments",
+      "basis": "contractual",
+      "unit": "currency_million",
+      "buckets": [
+        {
+          "label": "remainder_2026",
+          "value": 105
+        },
+        {
+          "label": "2027",
+          "value": 215
+        },
+        {
+          "label": "2028",
+          "value": 221
+        },
+        {
+          "label": "2029",
+          "value": 227
+        },
+        {
+          "label": "2030",
+          "value": 153
+        },
+        {
+          "label": "thereafter",
+          "value": 160
+        }
+      ],
+      "reported_total": 1081,
+      "source_locator": "Form10-Q note6 p16",
+      "notes": "Excludes associated lease costs."
+    }
+  ],
+  "hedges": [
+    {
+      "airline_id": "jetblue",
+      "as_of": "2026-06-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm",
+      "source_locator": "Form10-Q Item3 p42",
+      "status": "no_open_positions",
+      "coverage_fraction": 0,
+      "coverage_horizon": "Outstanding positions at reporting date",
+      "price": null,
+      "price_unit": null,
+      "notes": "Issuer explicitly reports no outstanding fuel hedging contracts. Its forward12-month +10% fuel-price sensitivity is309 USDm; distinct from our historical-expense sensitivity.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "alaska",
+      "as_of": "2025-12-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/766421/000076642126000010/alk-20251231.htm",
+      "source_locator": "Form10-K fuel discussion",
+      "status": "no_open_positions",
+      "coverage_fraction": 0,
+      "coverage_horizon": "Outstanding positions at December2025",
+      "price": null,
+      "price_unit": null,
+      "notes": "Both Alaska and Hawaiian programmes suspended; all remaining positions settled in2025. June2026 Item3 says no material market-risk change, but a September2026 position statement is not yet extracted.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "american",
+      "as_of": "2026-09-30",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/6201/000000620126000065/aal-20260930.htm",
+      "source_locator": "Form10-Q fuel discussion",
+      "status": "no_open_positions",
+      "coverage_fraction": 0,
+      "coverage_horizon": "Outstanding positions at reporting date",
+      "price": null,
+      "price_unit": null,
+      "notes": "Explicit no fuel hedge contracts outstanding; current policy is not to hedge fuel consumption.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "southwest",
+      "as_of": "2025-12-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238026000004/R20.htm",
+      "source_locator": "2025 Form10-K financial derivative instruments note",
+      "status": "programme_closed",
+      "coverage_fraction": 0,
+      "coverage_horizon": "Outstanding positions at December2025",
+      "price": null,
+      "price_unit": null,
+      "notes": "Remaining fuel hedge portfolio terminated inQ2 2025. Deferred accounting amounts from closed positions do not provide future price protection.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "latam",
+      "as_of": "2026-07-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm",
+      "source_locator": "Market risks management, fuel hedge table p6",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.45,
+      "coverage_horizon": "2026Q3",
+      "price": null,
+      "price_unit": null,
+      "notes": "US Gulf Coast54 jet fuel; capped collars offer protection only within a range. Q3 comprises37% collars and8% calls; later quarters collars. Percentages are horizon-specific, not additive.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "latam",
+      "as_of": "2026-07-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm",
+      "source_locator": "Market risks management, fuel hedge table p6",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.27,
+      "coverage_horizon": "2026Q4",
+      "price": null,
+      "price_unit": null,
+      "notes": "US Gulf Coast54 jet fuel; capped collars offer protection only within a range. Q3 comprises37% collars and8% calls; later quarters collars. Percentages are horizon-specific, not additive.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "latam",
+      "as_of": "2026-07-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm",
+      "source_locator": "Market risks management, fuel hedge table p6",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.12,
+      "coverage_horizon": "2027Q1",
+      "price": null,
+      "price_unit": null,
+      "notes": "US Gulf Coast54 jet fuel; capped collars offer protection only within a range. Q3 comprises37% collars and8% calls; later quarters collars. Percentages are horizon-specific, not additive.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "latam",
+      "as_of": "2026-07-31",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm",
+      "source_locator": "Market risks management, fuel hedge table p6",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.07,
+      "coverage_horizon": "2027Q2",
+      "price": null,
+      "price_unit": null,
+      "notes": "US Gulf Coast54 jet fuel; capped collars offer protection only within a range. Q3 comprises37% collars and8% calls; later quarters collars. Percentages are horizon-specific, not additive.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "easyjet",
+      "as_of": "2026-05-21",
+      "source_url": "https://data.fca.org.uk/artefacts/NSM/MFN/b5400e4e-e8f2-48a1-aadd-fdecdb855799.html",
+      "source_locator": "Fuel & FX hedging table / going concern basis",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.72,
+      "coverage_horizon": "FY2026H2",
+      "price": 726,
+      "price_unit": "USD/metric_tonne",
+      "notes": "Positions at approval of May report, not March balance-sheet date. Fiscal year ends September. Later July trading update requires extraction before a current fuel scenario.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "easyjet",
+      "as_of": "2026-05-21",
+      "source_url": "https://data.fca.org.uk/artefacts/NSM/MFN/b5400e4e-e8f2-48a1-aadd-fdecdb855799.html",
+      "source_locator": "Fuel & FX hedging table / going concern basis",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.53,
+      "coverage_horizon": "FY2027H1",
+      "price": 719,
+      "price_unit": "USD/metric_tonne",
+      "notes": "Positions at approval of May report, not March balance-sheet date. Fiscal year ends September. Later July trading update requires extraction before a current fuel scenario.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "easyjet",
+      "as_of": "2026-05-21",
+      "source_url": "https://data.fca.org.uk/artefacts/NSM/MFN/b5400e4e-e8f2-48a1-aadd-fdecdb855799.html",
+      "source_locator": "Fuel & FX hedging table / going concern basis",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.29,
+      "coverage_horizon": "FY2027H2",
+      "price": 745,
+      "price_unit": "USD/metric_tonne",
+      "notes": "Positions at approval of May report, not March balance-sheet date. Fiscal year ends September. Later July trading update requires extraction before a current fuel scenario.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "ryanair",
+      "as_of": "2026-05-18",
+      "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf",
+      "source_locator": "FY2026 results release p1",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.8,
+      "coverage_horizon": "FY ending2027-03-31",
+      "price": 668,
+      "price_unit": "USD/metric_tonne",
+      "notes": "FY2027 forecast fuel; disclosure at results release. Price is per metric tonne, not per barrel.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "lufthansa",
+      "as_of": "2025-12-31",
+      "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf",
+      "source_locator": "Annual report PDF p90, fuel risk",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.76,
+      "coverage_horizon": "Calendar2026",
+      "price": null,
+      "price_unit": null,
+      "notes": "Approximate actual coverage. Policy target85% is distinct. Crude, gasoil and kerosene derivatives introduce basis and option-payoff differences.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "lufthansa",
+      "as_of": "2025-12-31",
+      "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf",
+      "source_locator": "Annual report PDF p90, fuel risk",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.29,
+      "coverage_horizon": "Calendar2027",
+      "price": null,
+      "price_unit": null,
+      "notes": "Approximate actual coverage. Policy target85% is distinct. Crude, gasoil and kerosene derivatives introduce basis and option-payoff differences.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "singapore",
+      "as_of": "2026-03-31",
+      "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf",
+      "source_locator": "Annual report PDF p92, fuel price risk",
+      "status": "positions_disclosed_unquantified",
+      "coverage_fraction": null,
+      "coverage_horizon": null,
+      "price": null,
+      "price_unit": null,
+      "notes": "Brent/MOPS positions through Q4 FY2030/31; up to approximately14.5% of projected annual consumption, prices65\u201393 USD/barrel. No exact single-year fraction extracted.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "eastern",
+      "as_of": "2025-12-31",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf",
+      "source_locator": "Annual report PDF p34, commodity price risk",
+      "status": "volume_without_denominator",
+      "coverage_fraction": null,
+      "coverage_horizon": null,
+      "price": null,
+      "price_unit": null,
+      "notes": "500,000 barrels outstanding, expiring2026; expected consumption denominator absent, so coverage fraction remains null.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "qatar",
+      "as_of": "2026-03-31",
+      "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf",
+      "source_locator": "Annual report PDF p60, note32",
+      "status": "policy_only",
+      "coverage_fraction": null,
+      "coverage_horizon": null,
+      "price": null,
+      "price_unit": null,
+      "notes": "Swaps/options on crude and crack spreads up to two years; derivative asset value is not a coverage fraction.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "turkish",
+      "as_of": "2025-12-31",
+      "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf",
+      "source_locator": "Annual report PDF p29, commodity risk",
+      "status": "policy_only",
+      "coverage_fraction": null,
+      "coverage_horizon": null,
+      "price": null,
+      "price_unit": null,
+      "notes": "Up to24 months; next-month maximum60% is a policy cap, not extracted actual coverage.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "easyjet",
+      "as_of": "2026-07-23",
+      "source_url": "https://www.investegate.co.uk/announcement/mfn/easyjet--ezj/trading-update-for-the-quarter-ended-30-june-/9682899",
+      "source_locator": "Outlook and Fuel & FX hedging table",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.79,
+      "coverage_horizon": "FY2026Q4",
+      "price": 786,
+      "price_unit": "USD/metric_tonne",
+      "notes": "Issuer trading-update disclosure date. Fiscal year ends September; do not sum half-year percentages. Supersedes May forward positions for overlapping horizons.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "easyjet",
+      "as_of": "2026-07-23",
+      "source_url": "https://www.investegate.co.uk/announcement/mfn/easyjet--ezj/trading-update-for-the-quarter-ended-30-june-/9682899",
+      "source_locator": "Outlook and Fuel & FX hedging table",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.62,
+      "coverage_horizon": "FY2027H1",
+      "price": 754,
+      "price_unit": "USD/metric_tonne",
+      "notes": "Issuer trading-update disclosure date. Fiscal year ends September; do not sum half-year percentages. Supersedes May forward positions for overlapping horizons.",
+      "retrieved_on": "2026-10-25"
+    },
+    {
+      "airline_id": "easyjet",
+      "as_of": "2026-07-23",
+      "source_url": "https://www.investegate.co.uk/announcement/mfn/easyjet--ezj/trading-update-for-the-quarter-ended-30-june-/9682899",
+      "source_locator": "Outlook and Fuel & FX hedging table",
+      "status": "positions_disclosed",
+      "coverage_fraction": 0.37,
+      "coverage_horizon": "FY2027H2",
+      "price": 777,
+      "price_unit": "USD/metric_tonne",
+      "notes": "Issuer trading-update disclosure date. Fiscal year ends September; do not sum half-year percentages. Supersedes May forward positions for overlapping horizons.",
+      "retrieved_on": "2026-10-25"
+    }
+  ],
+  "events": [
+    {
+      "airline_id": "jetblue",
+      "event_date": "2026-10-27",
+      "event": "Q3 earnings scheduled; not available at research cutoff",
+      "source_url": "https://www.ir.jetblue.com/news/news-details/2026/JetBlue-Announces-Webcast-of-Third-Quarter-2026-Earnings-Conference-Call/default.aspx"
+    },
+    {
+      "airline_id": "latam",
+      "event_date": "2026-11-03",
+      "event": "Q3 earnings scheduled after cutoff; do not ingest future results",
+      "source_url": "https://ir.latam.com/English/news/press-releases/news-details/2026/Scheduled-Third-Quarter-2026-Publication-Date-2026-CmvKQJFYgv/default.aspx"
+    },
+    {
+      "airline_id": "easyjet",
+      "event_date": "2026-10-15",
+      "event": "Apollo acquisition scheme document published; proposed financing and completion status require separate review before rating. No acquisition debt added to historical balance sheet.",
+      "source_url": "https://www.investegate.co.uk/announcement/rns/easyjet--ezj/publication-of-the-scheme-document/9823587"
+    }
+  ],
+  "ttm_approvals": {
+    "jetblue-2026h1": {
+      "annual_report_id": "jetblue",
+      "metrics": [
+        "revenue",
+        "operating_profit",
+        "fuel_cost",
+        "interest_expense",
+        "cfo",
+        "capex"
+      ],
+      "basis": "Same consolidated perimeter and currency; statutory operating result, not adjusted. CFO/capex retain issuer classifications."
+    },
+    "alaska-2026q3": {
+      "annual_report_id": "alaska",
+      "metrics": [
+        "revenue",
+        "operating_profit",
+        "fuel_cost",
+        "interest_expense",
+        "cfo",
+        "capex"
+      ],
+      "basis": "Same consolidated perimeter and currency; statutory operating result, not adjusted. CFO/capex retain issuer classifications."
+    },
+    "latam-2026h1": {
+      "annual_report_id": "latam",
+      "metrics": [
+        "revenue",
+        "operating_profit",
+        "fuel_cost",
+        "interest_expense",
+        "cfo",
+        "capex"
+      ],
+      "basis": "Same consolidated perimeter and currency; statutory operating result, not adjusted. CFO/capex retain issuer classifications."
+    },
+    "easyjet-2026h1": {
+      "annual_report_id": "easyjet",
+      "metrics": [
+        "revenue",
+        "operating_profit",
+        "fuel_cost",
+        "interest_expense",
+        "cfo",
+        "capex"
+      ],
+      "basis": "Same consolidated perimeter and currency; statutory operating result, not adjusted. CFO/capex retain issuer classifications."
+    }
+  }
+}

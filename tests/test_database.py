@@ -61,7 +61,7 @@ class DatabaseTests(unittest.TestCase):
     def test_scale_examples(self):
         v={(o['report_id'],o['metric']):o for o in self.data['observations']}
         self.assertEqual(v['eastern','revenue']['original_scale'],'millions')
-        self.assertEqual(v['ana','revenue']['original_scale'],'billions')
+        self.assertEqual(v['ana','revenue']['original_scale'],'millions')
         self.assertEqual(v['qatar','revenue']['original_scale'],'thousands')
 
 if __name__=='__main__':unittest.main()

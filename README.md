@@ -2,19 +2,28 @@
 
 **Research question:** Which major airline groups can absorb a sustained rise in fuel costs, weaker demand and tighter financing without exhausting their available funding?
 
-**Annual reporting database now populated:** 24 airline groups, 416 sourced financial observations, and a separate Emirates airline-only supplement. Prepared 24 October 2026. The revenue-based top 20 remains provisional; current-risk assessment and full debt-note extraction are incomplete.
+**Annual reporting database now populated:** 24 airline groups, 426 sourced financial observations, and a separate Emirates airline-only supplement. Updated 25 October 2026. The revenue-based top 20 remains provisional; current-risk assessment and full debt-note extraction are incomplete.
 
 This project examines gearing, cost structure, debt maturity and liquidity using public company disclosures. The intended coverage is 20 major passenger airline groups selected by revenue, plus four additional case studies: **easyJet, LATAM Airlines Group, Alaska Air Group and JetBlue Airways**. The provisional scope is 24 distinct groups; the revenue-based top 20 remains subject to verification. It includes listed and state-owned airlines where sufficiently comparable disclosures exist.
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
 
-## Read the first report
+## Read the report
 
 - [Python research workbook](notebooks/airline_resilience.ipynb): executed Jupyter notebook with commentary, charts, gearing, costs and an Alaska–JetBlue fuel sensitivity.
 - [HTML reading copy](reports/airline_resilience.html): download and open in a browser to read without code.
 - [Reporting workflow](docs/reporting-workflow.md): reproduce the edition and update the research.
 
-The report uses the annual baseline; it does not yet assign current risk ratings. Install `requirements-report.txt` before running the full test suite or rendering the notebook. The database builder itself needs no extra packages.
+The report combines the annual baseline with a separate dated interim evidence layer. It does not assign current risk ratings. Install `requirements-report.txt` before running the full test suite or rendering the notebook. The database builder itself needs no extra packages.
+
+## Current evidence and outstanding work
+
+The update adds 133 interim observations for the four additional cases, eight debt/commitment schedules and 21 dated fuel-hedge records across 12 groups. Coverage is partial: statements, trading updates and notes retain their actual dates. Twenty of 24 groups still lack an extracted interim statement set in this layer.
+
+- [Risk research readiness](database/risk_readiness.md): the outstanding work for every group.
+- [Current evidence guide](docs/current-evidence.md): definitions, dates and limitations.
+- [Interim comparisons](database/interim_comparison.csv) and [trailing metrics](database/ttm_metrics.csv).
+- [Debt and commitment schedules](database/current_maturities.csv) and [fuel hedge evidence](database/fuel_hedges.csv).
 
 ## Open the database
 

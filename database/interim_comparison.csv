@@ -1,0 +1,5 @@
+airline_id,entity,report_id,period_end,months,currency,assets,equity,cash,short_term_investments,issuer_debt,liquidity_including_facilities,liquidity_excluding_facilities,debt_and_lease_carrying_amount,debt_basis,debt_to_equity,equity_ratio_status
+jetblue,JetBlue Airways,jetblue-2026h1,2026-06-30,6,USD,16371,1587,1656,364,,,2200,9386,debt_finance_leases_plus_operating_leases,5.914303717706364,available
+alaska,Alaska Air Group,alaska-2026q3,2026-09-30,9,USD,21029,3530,835,1396,,3300,,7519,debt_finance_leases_plus_operating_leases,2.130028328611898,available
+latam,LATAM Airlines Group,latam-2026h1,2026-06-30,6,USD,19648.042,1986.265,2650.857,,9025.248,4225.857,,,,,missing_inputs
+easyjet,easyJet,easyjet-2026h1,2026-03-31,6,GBP,12737,3657,2288,1158,,4700,,3012,borrowings_plus_ifrs_leases,0.8236259228876128,available
