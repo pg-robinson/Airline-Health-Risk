@@ -1,0 +1,25 @@
+airline_id,entity,currency,period_end,debt_to_equity,debt_to_assets_pct,equity_to_assets_pct,interest_cover,interest_share_of_operating_profit_pct,interest_reading
+delta,Delta Air Lines,USD,2025-12-31,0.9769189996626993,24.972593459382892,25.562603929297286,,,Gross interest not extracted; coverage unavailable
+alaska,Alaska Air Group,USD,2025-12-31,1.6738708110733365,33.853936447129314,20.224939835960907,1.1139705882352942,89.76897689768977,Operating earnings exceed interest expense
+iag,International Airlines Group,EUR,2025-12-31,1.8787200421385304,33.29599290531868,17.72270064645616,,,Gross interest not extracted; coverage unavailable
+ryanair,Ryanair Holdings,EUR,2026-03-31,0.14765280060189678,7.552778298232199,51.1522860890129,,,Gross interest not extracted; coverage unavailable
+turkish,Turkish Airlines,USD,2025-12-31,0.8353195083044008,38.203549127738555,45.7352530952943,4.1090573012939,24.336482231219073,Operating earnings exceed interest expense
+qatar,Qatar Airways Group,QAR,2026-03-31,0.7371475326109104,31.30161954143632,42.46316803173551,,,Operating result unavailable
+korean,Korean Air,KRW,2025-12-31,1.962462926837697,44.61378184755202,22.73356670204336,,,Gross interest not extracted; coverage unavailable
+easyjet,easyJet,GBP,2025-09-30,0.8364779874213837,25.428000347614496,30.398887633614322,,,Gross interest not extracted; coverage unavailable
+qantas,Qantas Group,AUD,2025-06-30,10.160919540229886,34.06405206370954,3.352457612604898,,,Gross interest not extracted; coverage unavailable
+airchina,Air China,CNY,2025-12-31,5.786991560394711,66.12612930413448,11.426684938801648,,,Operating loss: interest is not covered by operating earnings
+eastern,China Eastern Airlines,CNY,2025-12-31,4.432294962277926,61.94533444895682,13.975905253634279,,,Gross interest not extracted; coverage unavailable
+cathay,Cathay Pacific,HKD,2025-12-31,0.9830996224029809,33.38077729015933,33.95462324414999,,,Gross interest not extracted; coverage unavailable
+afklm,Air France-KLM,EUR,2025-12-31,6.562182741116751,39.32817847635949,5.9931550259855495,3.192982456140351,31.318681318681318,Operating earnings exceed interest expense
+lufthansa,Lufthansa Group,EUR,2025-12-31,1.2404576893518915,30.01818407240567,24.19928090259123,3.23400365630713,30.921424533634823,Operating earnings exceed interest expense
+ana,ANA Holdings,JPY,2026-03-31,,,37.99201947446454,9.626643644574314,10.387836476772582,Operating earnings exceed interest expense
+united,United Airlines Holdings,USD,2025-12-31,2.0308860096845964,40.5975303474257,19.99005860192549,3.4326292789512016,29.132187566305962,Operating earnings exceed interest expense
+southwest,Southwest Airlines,USD,2025-12-31,0.7494048364866558,20.580847183510546,27.462922817521765,2.562874251497006,39.018691588785046,Operating earnings exceed interest expense
+jetblue,JetBlue Airways,USD,2025-12-31,4.441509433962264,56.825588412794204,12.7942063971032,-0.6258503401360545,,Operating loss: interest is not covered by operating earnings
+singapore,Singapore Airlines Group,SGD,2026-03-31,0.6018715368087754,24.519783381360757,40.73923068595135,,,Gross interest not extracted; coverage unavailable
+canada,Air Canada,CAD,2025-12-31,4.467773060594365,37.084734903091466,8.30049655614288,1.3846153846153846,72.22222222222223,Operating earnings exceed interest expense
+american,American Airlines Group,USD,2025-12-31,,58.22838087221161,-6.033282610807135,,,Gross interest not extracted; coverage unavailable
+latam,LATAM Airlines Group,USD,2025-12-31,6.048843779772988,45.85100605179183,7.580127330303215,3.2374358206638054,30.888643216252532,Operating earnings exceed interest expense
+southern,China Southern Airlines,CNY,2025-12-31,4.315221719457013,68.10854356340326,15.783324239472309,1.72573383756528,57.94636335176876,Operating earnings exceed interest expense
+emirates,Emirates Group,AED,2026-03-31,,,,,,Gross interest not extracted; coverage unavailable

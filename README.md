@@ -8,13 +8,18 @@ This project examines gearing, cost structure, debt maturity and liquidity using
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
 
-## Rebuilt research curves
+## Start here: an investor conversation
 
-[Five-chart gallery](reports/curves/index.html) · [Python chart workbook](notebooks/research_curves.ipynb) · [Definitions and omissions](docs/curves-methodology.md)
+[Read the investor brief (PDF)](reports/investor/investor_brief.pdf) · [Plain-English guide](docs/investor-guide.md) · [Python investor workbook](notebooks/investor_conversation.ipynb)
 
-Recreates the debt, financing-cost, revenue, operating-earnings and leverage/coverage questions. Regional colours are retained. Measures with incomplete historical equivalents are explicitly labelled as proxies; the charts do not assign risk ratings. Run `python curves.py` to regenerate SVG, PNG, PDF and HTML outputs.
+1. **How much have you borrowed?** Debt and leases relative to book equity and assets.
+2. **Do earnings cover interest?** Reported operating profit versus gross interest expense.
+3. **Can you meet the repayments?** Scheduled cash interest, principal and leases, with other commitments shown separately.
+4. **What is the risk profile?** Explain observed pressures, available funding and unresolved evidence.
 
-## Read the report
+These are defined analytical ratios drawn from reported US GAAP, IFRS or local accounts—not a claim that all issuers have been restated to US GAAP. The earlier borrowing-rate and EBITDA proxies are no longer the main investor presentation. Full cash debt-service coverage and overall credit ratings remain unassigned where evidence is incomplete.
+
+## Supporting research workbook
 
 - [Python research workbook](notebooks/airline_resilience.ipynb): executed Jupyter notebook with commentary, charts, gearing, costs and an Alaska–JetBlue fuel sensitivity.
 - [HTML reading copy](reports/airline_resilience.html): download and open in a browser to read without code.
@@ -73,3 +78,7 @@ The calculation reads the public-source observations in `data/jetblue.json`. It 
 5. Review all references and calculations before describing the project as a completed sector study.
 
 Only newly authored research and small, attributed public-source observations belong in this repository. Full third-party reports are linked rather than redistributed. No reuse licence has yet been selected for the original project code and commentary.
+
+## Earlier visual reconstruction
+
+The [legacy-style curves](notebooks/research_curves.ipynb) remain available as a historical analytical supplement. Their interest-expense and EBITDA proxies should not be read as GAAP line items, actual borrowing rates or cash available for debt repayment. Use the investor brief above for the current presentation.

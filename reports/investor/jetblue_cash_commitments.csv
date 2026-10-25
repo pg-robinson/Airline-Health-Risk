@@ -1,0 +1,3 @@
+period,as_of,currency,debt_and_finance_lease_payments_including_interest,operating_lease_payments,debt_and_lease_cash_commitments,aircraft_purchase_commitments,other_contractual_commitments,total_listed_commitments,source_url,source_locator
+remainder_2026,2026-06-30,USD,529,81,610,337,211,1158,https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm,"Form10-Q contractual obligations, p36"
+2027,2026-06-30,USD,1043,146,1189,383,397,1969,https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm,"Form10-Q contractual obligations, p36"
