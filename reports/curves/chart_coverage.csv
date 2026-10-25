@@ -1,0 +1,121 @@
+airline_id,entity,chart,included,reason
+delta,Delta Air Lines,debt,True,
+delta,Delta Air Lines,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+delta,Delta Air Lines,revenue,True,
+delta,Delta Air Lines,earnings,True,
+delta,Delta Air Lines,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+alaska,Alaska Air Group,debt,True,
+alaska,Alaska Air Group,interest,True,
+alaska,Alaska Air Group,revenue,True,
+alaska,Alaska Air Group,earnings,True,
+alaska,Alaska Air Group,map,True,
+iag,International Airlines Group,debt,True,
+iag,International Airlines Group,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+iag,International Airlines Group,revenue,True,
+iag,International Airlines Group,earnings,False,D&A includes impairment/provisions
+iag,International Airlines Group,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+ryanair,Ryanair Holdings,debt,True,
+ryanair,Ryanair Holdings,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+ryanair,Ryanair Holdings,revenue,True,
+ryanair,Ryanair Holdings,earnings,True,
+ryanair,Ryanair Holdings,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+turkish,Turkish Airlines,debt,True,
+turkish,Turkish Airlines,interest,True,
+turkish,Turkish Airlines,revenue,True,
+turkish,Turkish Airlines,earnings,True,
+turkish,Turkish Airlines,map,True,
+qatar,Qatar Airways Group,debt,True,
+qatar,Qatar Airways Group,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+qatar,Qatar Airways Group,revenue,True,
+qatar,Qatar Airways Group,earnings,False,Statutory operating profit or clean D&A missing
+qatar,Qatar Airways Group,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+korean,Korean Air,debt,True,
+korean,Korean Air,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+korean,Korean Air,revenue,True,
+korean,Korean Air,earnings,False,Statutory operating profit or clean D&A missing
+korean,Korean Air,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+easyjet,easyJet,debt,True,
+easyjet,easyJet,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+easyjet,easyJet,revenue,True,
+easyjet,easyJet,earnings,True,
+easyjet,easyJet,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+qantas,Qantas Group,debt,True,
+qantas,Qantas Group,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+qantas,Qantas Group,revenue,True,
+qantas,Qantas Group,earnings,True,
+qantas,Qantas Group,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+airchina,Air China,debt,True,
+airchina,Air China,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+airchina,Air China,revenue,True,
+airchina,Air China,earnings,True,
+airchina,Air China,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+eastern,China Eastern Airlines,debt,True,
+eastern,China Eastern Airlines,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+eastern,China Eastern Airlines,revenue,True,
+eastern,China Eastern Airlines,earnings,True,
+eastern,China Eastern Airlines,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+cathay,Cathay Pacific,debt,True,
+cathay,Cathay Pacific,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+cathay,Cathay Pacific,revenue,True,
+cathay,Cathay Pacific,earnings,False,Statutory operating profit or clean D&A missing
+cathay,Cathay Pacific,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+afklm,Air France-KLM,debt,True,
+afklm,Air France-KLM,interest,True,
+afklm,Air France-KLM,revenue,True,
+afklm,Air France-KLM,earnings,False,D&A includes impairment/provisions
+afklm,Air France-KLM,map,True,
+lufthansa,Lufthansa Group,debt,True,
+lufthansa,Lufthansa Group,interest,True,
+lufthansa,Lufthansa Group,revenue,True,
+lufthansa,Lufthansa Group,earnings,False,Statutory operating profit or clean D&A missing
+lufthansa,Lufthansa Group,map,True,
+ana,ANA Holdings,debt,False,Comparable debt/lease perimeter missing
+ana,ANA Holdings,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+ana,ANA Holdings,revenue,True,
+ana,ANA Holdings,earnings,False,Statutory operating profit or clean D&A missing
+ana,ANA Holdings,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+united,United Airlines Holdings,debt,True,
+united,United Airlines Holdings,interest,True,
+united,United Airlines Holdings,revenue,True,
+united,United Airlines Holdings,earnings,True,
+united,United Airlines Holdings,map,True,
+southwest,Southwest Airlines,debt,True,
+southwest,Southwest Airlines,interest,True,
+southwest,Southwest Airlines,revenue,True,
+southwest,Southwest Airlines,earnings,True,
+southwest,Southwest Airlines,map,True,
+jetblue,JetBlue Airways,debt,True,
+jetblue,JetBlue Airways,interest,True,
+jetblue,JetBlue Airways,revenue,True,
+jetblue,JetBlue Airways,earnings,True,
+jetblue,JetBlue Airways,map,True,
+singapore,Singapore Airlines Group,debt,True,
+singapore,Singapore Airlines Group,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+singapore,Singapore Airlines Group,revenue,True,
+singapore,Singapore Airlines Group,earnings,True,
+singapore,Singapore Airlines Group,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+canada,Air Canada,debt,True,
+canada,Air Canada,interest,True,
+canada,Air Canada,revenue,True,
+canada,Air Canada,earnings,False,D&A includes impairment/provisions
+canada,Air Canada,map,True,
+american,American Airlines Group,debt,True,
+american,American Airlines Group,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+american,American Airlines Group,revenue,True,
+american,American Airlines Group,earnings,False,Statutory operating profit or clean D&A missing
+american,American Airlines Group,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"
+latam,LATAM Airlines Group,debt,True,
+latam,LATAM Airlines Group,interest,True,
+latam,LATAM Airlines Group,revenue,True,
+latam,LATAM Airlines Group,earnings,True,
+latam,LATAM Airlines Group,map,True,
+southern,China Southern Airlines,debt,True,
+southern,China Southern Airlines,interest,True,
+southern,China Southern Airlines,revenue,True,
+southern,China Southern Airlines,earnings,True,
+southern,China Southern Airlines,map,True,
+emirates,Emirates Group,debt,False,Comparable debt/lease perimeter missing
+emirates,Emirates Group,interest,False,Gross interest or matched financing-debt subtotal missing; net interest/finance costs not substituted
+emirates,Emirates Group,revenue,True,
+emirates,Emirates Group,earnings,False,Statutory operating profit or clean D&A missing
+emirates,Emirates Group,map,False,"Positive book equity, comparable debt/leases or gross-interest coverage missing"

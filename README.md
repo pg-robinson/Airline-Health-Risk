@@ -8,6 +8,12 @@ This project examines gearing, cost structure, debt maturity and liquidity using
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
 
+## Rebuilt research curves
+
+[Five-chart gallery](reports/curves/index.html) · [Python chart workbook](notebooks/research_curves.ipynb) · [Definitions and omissions](docs/curves-methodology.md)
+
+Recreates the debt, financing-cost, revenue, operating-earnings and leverage/coverage questions. Regional colours are retained. Measures with incomplete historical equivalents are explicitly labelled as proxies; the charts do not assign risk ratings. Run `python curves.py` to regenerate SVG, PNG, PDF and HTML outputs.
+
 ## Read the report
 
 - [Python research workbook](notebooks/airline_resilience.ipynb): executed Jupyter notebook with commentary, charts, gearing, costs and an Alaska–JetBlue fuel sensitivity.

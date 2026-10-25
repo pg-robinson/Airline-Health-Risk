@@ -1,5 +1,6 @@
 """Execute the reporting notebook and export an HTML reading copy without code."""
 import os
+import argparse
 from pathlib import Path
 import sys
 import tempfile
@@ -11,7 +12,11 @@ from jupyter_client import KernelManager
 ROOT=Path(__file__).resolve().parent
 
 def main():
-    path=ROOT/'notebooks/airline_resilience.ipynb'
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--notebook',default='notebooks/airline_resilience.ipynb')
+    parser.add_argument('--output',default='reports/airline_resilience.html')
+    args=parser.parse_args()
+    path=ROOT/args.notebook
     notebook=nbformat.read(path,as_version=4)
     nbformat.validate(notebook)
     with tempfile.TemporaryDirectory() as temp:
@@ -28,7 +33,7 @@ def main():
     nbformat.write(notebook,path)
     exporter=HTMLExporter(template_name='lab',exclude_input=True,exclude_input_prompt=True,exclude_output_prompt=True)
     body,_=exporter.from_notebook_node(notebook)
-    dest=ROOT/'reports/airline_resilience.html'
+    dest=ROOT/args.output
     dest.parent.mkdir(exist_ok=True)
     dest.write_text(body)
     print(f'Executed {sum(c.cell_type=="code" for c in notebook.cells)} code cells; exported {dest.name}')
