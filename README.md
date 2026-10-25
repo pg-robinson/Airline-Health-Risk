@@ -8,6 +8,14 @@ This project examines gearing, cost structure, debt maturity and liquidity using
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
 
+## Read the first report
+
+- [Python research workbook](notebooks/airline_resilience.ipynb): executed Jupyter notebook with commentary, charts, gearing, costs and an Alaska–JetBlue fuel sensitivity.
+- [HTML reading copy](reports/airline_resilience.html): download and open in a browser to read without code.
+- [Reporting workflow](docs/reporting-workflow.md): reproduce the edition and update the research.
+
+The report uses the annual baseline; it does not yet assign current risk ratings. Install `requirements-report.txt` before running the full test suite or rendering the notebook. The database builder itself needs no extra packages.
+
 ## Open the database
 
 - [Annual comparison](database/annual_comparison.csv): each airline’s figures in its reporting currency.
@@ -18,7 +26,7 @@ Alaska and JetBlue will receive a direct comparison of gearing, cost structure, 
 
 ```sh
 python3 build_database.py
-python3 -m unittest discover -s tests
+python3 -m unittest discover -s tests -p "test_database.py"
 ```
 
 The build creates `database/airline_financials.sqlite` and refreshes the exports. Missing observations remain blank. Debt and leases are combined without double counting; ratios with non-positive equity are withheld. The database preserves original currencies and reporting periods.
@@ -32,11 +40,11 @@ The build creates `database/airline_financials.sqlite` and refreshes the exports
 
 ## Reproduce the pilot
 
-Python 3.10 or later; no third-party packages required.
+Python 3.10 or later; the original pilot uses no third-party packages.
 
 ```sh
 python3 analysis.py
-python3 -m unittest discover -s tests
+python3 -m unittest discover -s tests -p "test_analysis.py"
 ```
 
 The calculation reads the public-source observations in `data/jetblue.json`. It prints ratios and a clearly labelled illustrative fuel sensitivity. It does not calculate a probability of default or assign credit ratings.
