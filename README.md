@@ -8,6 +8,12 @@ This project examines gearing, cost structure, debt maturity and liquidity using
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
 
+## Latest research: the credit story
+
+[JetBlue losses, warning limits and reverse stress scenarios](docs/credit-story.md) · [Industry risk benchmarks](docs/airline-credit-benchmarks.md) · [Python credit workbook](notebooks/credit_story.ipynb)
+
+The new narrative distinguishes persistent losses, cash pressure, contractual triggers and hypothetical shocks. EBITDAR remains relevant when leases are reconciled. Scenario budgets are not forecasts or verified covenant headroom.
+
 ## Start here: an investor conversation
 
 [Read the investor brief (PDF)](reports/investor/investor_brief.pdf) · [Plain-English guide](docs/investor-guide.md) · [Python investor workbook](notebooks/investor_conversation.ipynb)

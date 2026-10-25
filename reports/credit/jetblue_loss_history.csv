@@ -1,0 +1,8 @@
+period,months,net_income,source_url,locator,cumulative_net_income_since_2020
+2020,12,-1354,https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm,Consolidated statements of operations / comprehensive loss,-1354
+2021,12,-182,https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm,Consolidated statements of operations / comprehensive loss,-1536
+2022,12,-362,https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm,Consolidated statements of operations / comprehensive loss,-1898
+2023,12,-310,https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm,Consolidated statements of operations / comprehensive loss,-2208
+2024,12,-795,https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm,Consolidated statements of operations / comprehensive loss,-3003
+2025,12,-602,https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm,Consolidated statements of operations / comprehensive loss,-3605
+H1 2026,6,-566,https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm,"Six months ended June 30, statements of operations",-4171

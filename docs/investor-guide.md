@@ -1,6 +1,8 @@
 # An investor conversation about airline leverage
 
-**Research date: 25 October 2026.** This is the main reading guide. It replaces the earlier interest-expense/debt and EBITDA-proxy charts as the recommended way to interpret this project.
+**Research date: 25 October 2026.** This is the accounting reading guide. It replaces the earlier interest-expense/debt and EBITDA-proxy charts as the recommended way to interpret this project.
+
+**Read next:** [Credit story: losses, limits and stress](credit-story.md) and [current airline benchmarks](airline-credit-benchmarks.md). EBITDAR remains useful when leases are reconciled; book gearing is supporting context, not the preferred headline credit benchmark.
 
 ## “How much have you borrowed?”
 

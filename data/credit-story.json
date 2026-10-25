@@ -1,0 +1,133 @@
+{
+  "research_cutoff": "2026-10-25",
+  "currency": "USD",
+  "unit": "million",
+  "sources": {
+    "2022": "https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm",
+    "2025": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm",
+    "2026h1": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm",
+    "release": "https://ir.jetblue.com/news/news-details/2026/JetBlue-Announces-Second-Quarter-2026-Results/default.aspx",
+    "indenture": "https://www.sec.gov/Archives/edgar/data/1158463/000115846324000023/exhibit41-jetbluextrueblue.htm",
+    "fitch": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/more/Fitch_Deutsche_Lufthansa_AG_-_15_Sep_2026.pdf",
+    "sp": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/more/RatingsDirect_DeutscheLufthansaAG_3616411_Aug-24-2026.pdf",
+    "moodys": "https://ratings.moodys.com/api/rmc-documents/426534",
+    "ifrs": "https://www.ifrs.org/-/media/project/leases/ifrs/published-documents/ifrs16-effects-analysis.pdf"
+  },
+  "loss_history": [
+    {
+      "period": "2020",
+      "months": 12,
+      "net_income": -1354,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm",
+      "locator": "Consolidated statements of operations / comprehensive loss"
+    },
+    {
+      "period": "2021",
+      "months": 12,
+      "net_income": -182,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm",
+      "locator": "Consolidated statements of operations / comprehensive loss"
+    },
+    {
+      "period": "2022",
+      "months": 12,
+      "net_income": -362,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846323000002/jblu-20221231.htm",
+      "locator": "Consolidated statements of operations / comprehensive loss"
+    },
+    {
+      "period": "2023",
+      "months": 12,
+      "net_income": -310,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm",
+      "locator": "Consolidated statements of operations / comprehensive loss"
+    },
+    {
+      "period": "2024",
+      "months": 12,
+      "net_income": -795,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm",
+      "locator": "Consolidated statements of operations / comprehensive loss"
+    },
+    {
+      "period": "2025",
+      "months": 12,
+      "net_income": -602,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000007/jblu-20251231.htm",
+      "locator": "Consolidated statements of operations / comprehensive loss"
+    },
+    {
+      "period": "H1 2026",
+      "months": 6,
+      "net_income": -566,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm",
+      "locator": "Six months ended June 30, statements of operations"
+    }
+  ],
+  "inputs": {
+    "balance_date": "2026-06-30",
+    "cash_and_equivalents": 1656,
+    "investment_securities": 512,
+    "undrawn_facility": 600,
+    "annual_revenue_2025": 9062,
+    "h1_revenue_2026": 4937,
+    "h1_revenue_2025": 4496,
+    "fuel_expense_increase_per_10pct": 309,
+    "interest_expense_increase_per_100bp": 22
+  },
+  "input_locators": {
+    "cash_and_equivalents": "release: selected balance sheet",
+    "investment_securities": "release: selected balance sheet; unrestricted liquidity reconciliation remains separate from covenant eligibility",
+    "undrawn_facility": "2026h1: Liquidity and capital resources",
+    "annual_revenue_2025": "2025: statements of operations",
+    "h1_revenue_2026": "2026h1: statements of operations",
+    "h1_revenue_2025": "2026h1: comparative statements of operations",
+    "fuel_expense_increase_per_10pct": "2026h1: Item 3, projected next-12-month sensitivity at June 30",
+    "interest_expense_increase_per_100bp": "2026h1: Item 3, floating-rate debt sensitivity"
+  },
+  "analyst_assumptions": {
+    "planning_cash_floor": 1000,
+    "floor_is_covenant": false,
+    "cash_transmission_of_incremental_expense": 1,
+    "revenue_cash_drop_through": 1,
+    "horizon_months": 12,
+    "horizon_start": "2026-06-30",
+    "horizon_end": "2027-06-30",
+    "note": "Reverse stress budget from a historical snapshot, not an October liquidity estimate or forecast. Baseline cash consumption is an unknown to solve for, not a forecast."
+  },
+  "scenarios": [
+    {
+      "name": "No incremental shock",
+      "fuel_rise_pct": 0,
+      "fuel_recapture": 0,
+      "revenue_decline_pct": 0,
+      "rate_rise_bp": 0,
+      "cash_holdback": 0
+    },
+    {
+      "name": "Fuel shock, partial recovery",
+      "fuel_rise_pct": 10,
+      "fuel_recapture": 0.5,
+      "revenue_decline_pct": 0,
+      "rate_rise_bp": 100,
+      "cash_holdback": 0
+    },
+    {
+      "name": "Combined downside",
+      "fuel_rise_pct": 20,
+      "fuel_recapture": 0.25,
+      "revenue_decline_pct": 3,
+      "rate_rise_bp": 200,
+      "cash_holdback": 250
+    }
+  ],
+  "contract_terms": {
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846324000023/exhibit41-jetbluextrueblue.htm",
+    "agreement_date": "2024-08-27",
+    "minimum_liquidity": 750,
+    "minimum_liquidity_test": "quarter-end; agreement-defined liquidity includes eligible available revolvers, not just reported cash",
+    "senior_dscr_after_june_2026": 1.75,
+    "senior_ltv_early_amortization_above_pct": 62.5,
+    "status": "Original executed terms; subsequent amendments, certificates, current test values and other facilities not fully reviewed. No current covenant headroom or breach conclusion."
+  }
+}

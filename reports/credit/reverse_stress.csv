@@ -1,0 +1,4 @@
+scenario,opening_cash_and_investments,analyst_cash_floor,incremental_fuel,incremental_demand,incremental_interest,hypothetical_holdback,total_incremental_shocks,hypothetical_net_funding,maximum_baseline_cash_consumption
+No incremental shock,2168,1000,0.0,0.0,0.0,0,0.0,0,1168.0
+"Fuel shock, partial recovery",2168,1000,154.5,0.0,22.0,0,176.5,0,991.5
+Combined downside,2168,1000,463.5,285.09,44.0,250,1042.59,0,125.41000000000008
