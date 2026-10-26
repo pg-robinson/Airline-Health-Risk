@@ -8,6 +8,20 @@ This project examines gearing, cost structure, debt maturity and liquidity using
 
 Alaska and JetBlue will receive a direct comparison of gearing, cost structure, liquidity and refinancing exposure, as requested for the study. All four additional cases will use the same financial definitions and stress scenarios as the core sample.
 
+## Start with the story
+
+[Which airlines can survive a bad year without asking for rescue money?](docs/investor-story.md)
+
+Fuel costs rise. Ticket sales miss the plan. Cash falls. Borrowing buys time but adds interest. Our research asks whether each airline can recover before its usable funding runs out. The plain-English report includes a worked example and JetBlue's specific warning signs.
+
+## Latest: one airline map and seven risk lenses
+
+[Read the map and findings](docs/risk-map-guide.md) · [Interactive dashboard](reports/risk-map/index.html) (download and open in a browser) · [Python map workbook](notebooks/risk_map.ipynb)
+
+All 24 groups are represented, with 22 placed numerically and two debt-comparability gaps. Three complete interim arrows and one additional margin trend distinguish deterioration from the annual baseline. Five macro channels plus labour and parts form an evidence register; unknown exposure is never coded as low risk.
+
+![Financial pressure map](reports/risk-map/airline_risk_map.png)
+
 ## Latest research: the credit story
 
 [JetBlue losses, warning limits and reverse stress scenarios](docs/credit-story.md) · [Industry risk benchmarks](docs/airline-credit-benchmarks.md) · [Python credit workbook](notebooks/credit_story.ipynb)

@@ -1,0 +1,197 @@
+{
+  "research_cutoff": "2026-10-25",
+  "status": "Provisional financial screen and exposure register; not default probabilities or verified current credit ratings",
+  "macro_selection": "Author selection of five present macro transmission channels, informed by dated IATA and IMF research; not an official ranked list. Labour and parts are separate operational overlays.",
+  "macro_issues": [
+    {
+      "id": "fuel",
+      "name": "Fuel price and physical availability",
+      "source_date": "2026-06-07",
+      "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability",
+      "mechanism": "Jet-fuel prices, refinery/crack spreads and physical availability affect both costs and capacity. Hedges offer dated price protection; they do not assure supply.",
+      "monitor": "Fuel expense/revenue; hedge horizon and instrument; pricing recovery; physical supply contingency."
+    },
+    {
+      "id": "geopolitics",
+      "name": "Conflict, airspace and network disruption",
+      "source_date": "2026-09-30",
+      "source_url": "https://www.iata.org/en/pressroom/2026-releases/09-30-air-passenger-demand-slips-august/",
+      "mechanism": "Disrupted hubs and airspace can remove revenue, lengthen flights and consume more fuel. Geographic exposure is not financial vulnerability.",
+      "monitor": "Affected capacity and revenue; rerouting cost; insurance; duration; alternative hubs."
+    },
+    {
+      "id": "demand",
+      "name": "Demand, trade and pricing pressure",
+      "source_date": "2026-10-13",
+      "source_url": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026",
+      "mechanism": "Real-income pressure and trade friction can weaken passenger demand or cargo flows. Premium, leisure and cargo businesses respond differently.",
+      "monitor": "Forward bookings, yields, load factor, cargo contribution and unit revenue against unit cost."
+    },
+    {
+      "id": "financing",
+      "name": "Interest rates and refinancing access",
+      "source_date": "2026-10-13",
+      "source_url": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026",
+      "mechanism": "Inflation and market volatility can raise funding costs or constrain credit. Maturity timing and collateral determine who needs to refinance into that market.",
+      "monitor": "Cash interest, floating debt, next 24-month maturities, covenants and committed available facilities."
+    },
+    {
+      "id": "fx",
+      "name": "Currency mismatch and dollar-linked costs",
+      "source_date": "2026-06",
+      "source_url": "https://www.iata.org/en/iata-repository/publications/economic-reports/global-outlook-for-air-transport-june-2026/",
+      "mechanism": "Dollar-linked fuel, aircraft and debt can create a mismatch with local-currency receipts. Reporting currency alone cannot establish its size or direction.",
+      "monitor": "Net cash exposure by currency, matching revenues/debt, hedges and currency sensitivity."
+    }
+  ],
+  "operational_evidence": [
+    {
+      "airline_id": "jetblue",
+      "issue": "labour",
+      "group": "Bargaining / cost exposure",
+      "evidence_level": "disclosed",
+      "as_of": "2026-06-30",
+      "note": "Union negotiations disclosed; this is not evidence of a current staff shortage or strike.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm",
+      "source_locator": "Note 7: labor unions and non-unionized crewmembers"
+    },
+    {
+      "airline_id": "jetblue",
+      "issue": "parts",
+      "group": "Engine groundings",
+      "evidence_level": "observed",
+      "as_of": "2026-06-30",
+      "note": "Four aircraft grounded for lack of engines; dated operational constraint, not an October fleet count.",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm",
+      "source_locator": "MD&A: Pratt & Whitney"
+    },
+    {
+      "airline_id": "iag",
+      "issue": "labour",
+      "group": "Skills / third-party disruption",
+      "evidence_level": "disclosed",
+      "as_of": "2025-12-31",
+      "note": "Licensed staff availability, industrial unrest and third-party resources are disclosed risks; no quantified group-wide shortage extracted.",
+      "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/",
+      "source_locator": "2025 annual results PDF p23: principal risks"
+    },
+    {
+      "airline_id": "iag",
+      "issue": "parts",
+      "group": "Engine / component availability",
+      "evidence_level": "disclosed",
+      "as_of": "2025-12-31",
+      "note": "Delivery delays and engine/component availability affect schedules; current grounded fleet and financial impact not extracted.",
+      "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/",
+      "source_locator": "2025 annual results PDF p23: critical third parties"
+    },
+    {
+      "airline_id": "cathay",
+      "issue": "parts",
+      "group": "Engine groundings",
+      "evidence_level": "observed",
+      "as_of": "2025-12-31",
+      "note": "HK Express engine groundings affected earnings. Subsidiary exposure must not be described as the entire Cathay fleet.",
+      "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf",
+      "source_locator": "2025 annual results PDF p7: HK Express"
+    },
+    {
+      "airline_id": "ryanair",
+      "issue": "parts",
+      "group": "Delivery delays / spare engines",
+      "evidence_level": "observed",
+      "as_of": "2026-03-31",
+      "note": "FY26 delivery delays affected 29 aircraft; all 210 Gamechangers delivered by year-end. Spare engines are a mitigation, not proof that future supply risk is absent.",
+      "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf",
+      "source_locator": "FY26 results p1"
+    },
+    {
+      "airline_id": "ryanair",
+      "issue": "labour",
+      "group": "ATC / external labour exposure",
+      "evidence_level": "disclosed",
+      "as_of": "2026-05-18",
+      "note": "European ATC strikes are a disclosed external disruption risk; not a claim of an internal Ryanair labour shortage.",
+      "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf",
+      "source_locator": "FY26 results outlook"
+    },
+    {
+      "airline_id": "qantas",
+      "issue": "parts",
+      "group": "Parts supply constraints",
+      "evidence_level": "observed",
+      "as_of": "2025-06-30",
+      "note": "Aircraft-parts constraints affected Qantas Domestic. Older annual evidence requires an interim refresh.",
+      "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf",
+      "source_locator": "FY25 annual report PDF p23: Qantas Domestic"
+    },
+    {
+      "airline_id": "qantas",
+      "issue": "labour",
+      "group": "Wage / training costs",
+      "evidence_level": "observed",
+      "as_of": "2025-06-30",
+      "note": "Labour cost and fleet-transition training pressures disclosed; distinguish costs from unfilled jobs.",
+      "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf",
+      "source_locator": "FY25 annual report PDF pp23\u201324"
+    },
+    {
+      "airline_id": "canada",
+      "issue": "labour",
+      "group": "Past disruption / wage settlement",
+      "evidence_level": "historical",
+      "as_of": "2026-02",
+      "note": "2025 labour disruption was followed by arbitration settling wage terms in February 2026. Historical event, not a claim of an ongoing strike.",
+      "source_url": "https://content.presspage.com/uploads/3167/5101b9bd-8766-4720-9034-db9245b8c26c/2025_ar_en_final.pdf",
+      "source_locator": "2025 annual report leadership message and labour relations"
+    },
+    {
+      "airline_id": "lufthansa",
+      "issue": "labour",
+      "group": "Strike / bargaining exposure",
+      "evidence_level": "observed",
+      "as_of": "2026-03-31",
+      "note": "Q1 report records a February pilot strike and a March ground-staff wage settlement. These are dated events, not an October strike forecast.",
+      "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/interims-reports/LH-QR-2026-1-e.pdf",
+      "source_locator": "Q1 2026 interim: collective bargaining"
+    },
+    {
+      "airline_id": "southwest",
+      "issue": "parts",
+      "group": "Supplier / certification dependence",
+      "evidence_level": "disclosed",
+      "as_of": "2025-12-31",
+      "note": "Boeing deliveries and MAX 7 certification are disclosed dependencies; neither proves current grounded aircraft or a parts shortage.",
+      "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation",
+      "source_locator": "FY25 results: risk factors"
+    },
+    {
+      "airline_id": "southwest",
+      "issue": "labour",
+      "group": "Staff availability risk",
+      "evidence_level": "disclosed",
+      "as_of": "2025-12-31",
+      "note": "Retention of qualified employees is a disclosed risk; an actual staffing shortage is not established.",
+      "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation",
+      "source_locator": "FY25 results: risk factors"
+    },
+    {
+      "airline_id": "alaska",
+      "issue": "labour",
+      "group": "Labour cost / benefits",
+      "evidence_level": "disclosed",
+      "as_of": "2025-12-31",
+      "note": "Flight-attendant benefit costs disclosed. No current shortage or strike inferred.",
+      "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf",
+      "source_locator": "FY25 results: labour and other special items"
+    }
+  ],
+  "financial_overrides": {
+    "jetblue": {
+      "status": "distress",
+      "as_of": "2026-04-03",
+      "source_url": "https://www.fitchratings.com/research/corporate-finance/fitch-downgrades-jetblue-to-ccc-from-b-affirms-downgrades-certain-eetc-ratings-03-04-2026",
+      "note": "Fitch downgraded JetBlue to CCC+ on 3 April 2026. This is dated external distress evidence, not a newly verified October rating."
+    }
+  }
+}

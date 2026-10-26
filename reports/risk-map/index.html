@@ -1,0 +1,938 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Airline risk map</title>
+<style>
+:root{font:16px/1.5 system-ui;color:#203b4d;background:#f2f5f6}*{box-sizing:border-box}body{margin:0}header,main{max-width:1550px;margin:auto;padding:24px}header{padding-bottom:8px}h1{font-size:36px;line-height:1.15;margin:8px 0}h2{font-size:23px;margin:0 0 12px}h3{font-size:17px;margin:0 0 6px}p{margin:8px 0}a{color:#216a8b}small,.muted{color:#617581}small{font-size:12px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#397d70}section,.card{background:white;border:1px solid #dde5e9;border-radius:12px;padding:20px;margin-bottom:18px}.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}label{display:grid;gap:5px;font-size:12px;font-weight:650}select,input,button{font:inherit;color:inherit;background:white;border:1px solid #bdcbd3;border-radius:6px;padding:9px;max-width:100%}input{min-width:180px}button{cursor:pointer}.toolbar{position:sticky;top:0;z-index:10;box-shadow:0 3px 12px #203b4d08}#map svg{width:100%;height:auto;display:block}#map [id^=point-],#map [id^=label-]{cursor:pointer;transition:opacity .15s}.split{display:grid;grid-template-columns:1.15fr 1fr;gap:18px}.badge{display:inline-block;padding:3px 8px;border-radius:5px;background:#eef3f6;font-size:12px;margin-right:5px}.metric{font-size:24px;font-weight:700}.metrics{display:flex;gap:24px;flex-wrap:wrap;margin:16px 0}.riskcard{padding:12px 0;border-top:1px solid #e5ecef}.riskcard p{font-size:14px}.scroll{overflow:auto;max-height:680px}table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;border-bottom:1px solid #e4ebef;padding:10px;vertical-align:top}th{position:sticky;top:0;background:#f0f5f6;z-index:1}tbody tr{cursor:pointer}tbody tr:hover{background:#edf5f5}tr.selected{background:#edf5f5}td em{font-size:11px;display:block;color:#617581}#matrix{font-size:12px}#matrix td{min-width:140px}#matrix td:first-child{min-width:130px;font-weight:650}#matrix button{border:0;background:none;text-align:left;padding:0;font-size:12px;width:100%}.context{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.notice{border-left:4px solid #d2a848;padding:8px 14px;background:#fffaf0;font-size:14px}.sr-only{position:absolute;left:-9999px}.unknown{background:#edf0f3}.inferred{background:#e7eff5}.calculated{background:#d8e8ef}.disclosed{background:#f4ecd8}.mitigation{background:#dceee8}.historical{background:#e8e2ee}.observed{background:#f5ded6}footer{max-width:1550px;margin:auto;padding:0 24px 30px;color:#617581;font-size:13px}@media(max-width:900px){.split{grid-template-columns:1fr}header,main{padding:14px}h1{font-size:28px}.toolbar{position:static}section{padding:12px}#map{overflow:auto}#map svg{min-width:850px}}
+</style></head><body><header><div class="eyebrow">Airline financial resilience · 25 October 2026</div><h1>Who has room to absorb the next shock?</h1><p>Fuel costs rise. Ticket sales disappoint. Cash falls. Which airlines can pay their bills until trading recovers?</p><p class="notice">An early comparison, not a prediction of failure. We cannot yet establish the direction for 20 airlines. ANA and Emirates need more debt information before we can place them on the chart.</p></header><main>
+<section><h2>Borrowing buys time. Does it buy enough?</h2><p>Higher fuel bills and disappointing ticket sales can eat through cash together. A backup loan may cover the gap, but it adds interest and must eventually be repaid. The danger comes when cash is falling and the airline cannot obtain the next money it needs.</p><p><b>Healthy:</b> the business pays its bills and has room for a poor year. <b>Under pressure:</b> it needs savings or extra funding. <b>In danger:</b> a cash or loan limit is approaching without a credible way to close the gap.</p><p>Our colours show warning signs we have found. They do not yet prove how long each airline can keep paying. There is no single gearing number that makes every airline unrecoverable.</p><details><summary>A simple example—not an airline forecast</summary><p>An airline expects $500m of spare cash after its ordinary payments. Extra fuel costs take $300m. Disappointing ticket sales take another $588m. It is $388m short. If new borrowing costs 10% for a full year, it needs about $431m to cover both the gap and the new interest. A $400m credit line leaves about $28m still to find.</p><p>Assumptions: no fees, no repayment on the new loan that year, no cost savings, and the whole loan drawn for the year. The ticket-sales example assumes $10bn planned passenger revenue and seat occupancy of 80% rather than 85%, at unchanged capacity and fare mix.</p></details></section><section class="toolbar"><div class="controls"><label>Financial view<select id="financial"><option value="all">All airlines</option><option value="pressure">Serious warnings / weak earnings</option><option value="watch">Cash shortfall / profit squeeze</option><option value="positive">Positive profit and cash signs</option><option value="falling">Margin falling</option><option value="unknown">Direction unknown</option></select></label><label>What could go wrong?<select id="lens"><option value="all">All risks</option></select></label><label>Show airlines with<select id="group"><option value="all">All groups</option></select></label><label>Find airline<input id="search" type="search" placeholder="Name or group"></label><button id="reset">Reset</button><strong id="count" aria-live="polite"></strong></div><small>Click an airline or select a risk group. Non-matching points fade; unknown evidence never becomes a low-risk score.</small></section>
+<section><div id="map" aria-label="Airline financial pressure chart"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="720pt" viewBox="0 0 1152 720" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-26T07:23:20.457346</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 720 
+L 1152 720 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 86.4 504 
+L 915.84 504 
+L 915.84 108 
+L 86.4 108 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 86.4 504 
+L 915.84 504 
+L 915.84 384 
+L 86.4 384 
+z
+" clip-path="url(#p211bf2cfbf)" style="fill: #fbefeb; stroke: #fbefeb; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 86.4 504 
+L 86.4 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="md3b9ba8c5b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="86.4" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="86.4" y="518.597656" transform="rotate(-0 86.4 518.597656)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 190.08 504 
+L 190.08 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="190.08" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="190.08" y="518.597656" transform="rotate(-0 190.08 518.597656)">10</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 293.76 504 
+L 293.76 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="293.76" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="293.76" y="518.597656" transform="rotate(-0 293.76 518.597656)">20</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 397.44 504 
+L 397.44 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="397.44" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="397.44" y="518.597656" transform="rotate(-0 397.44 518.597656)">30</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 501.12 504 
+L 501.12 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="501.12" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="501.12" y="518.597656" transform="rotate(-0 501.12 518.597656)">40</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 604.8 504 
+L 604.8 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="604.8" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="604.8" y="518.597656" transform="rotate(-0 604.8 518.597656)">50</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_13">
+      <path d="M 708.48 504 
+L 708.48 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="708.48" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="708.48" y="518.597656" transform="rotate(-0 708.48 518.597656)">60</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_15">
+      <path d="M 812.16 504 
+L 812.16 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="812.16" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="812.16" y="518.597656" transform="rotate(-0 812.16 518.597656)">70</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_17">
+      <path d="M 915.84 504 
+L 915.84 108 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#md3b9ba8c5b" x="915.84" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="915.84" y="518.597656" transform="rotate(-0 915.84 518.597656)">80</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="501.12" y="534.118125" transform="rotate(-0 501.12 534.118125)">Debt and leases as a share of recorded assets (%) → more borrowing</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_19">
+      <path d="M 86.4 504 
+L 915.84 504 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <defs>
+       <path id="m2cae9b7dce" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="504" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="507.798828" transform="rotate(-0 79.4 507.798828)">−10</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_21">
+      <path d="M 86.4 444 
+L 915.84 444 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="444" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="447.798828" transform="rotate(-0 79.4 447.798828)">−5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_23">
+      <path d="M 86.4 384 
+L 915.84 384 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="384" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="387.798828" transform="rotate(-0 79.4 387.798828)">0</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_25">
+      <path d="M 86.4 324 
+L 915.84 324 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="324" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="327.798828" transform="rotate(-0 79.4 327.798828)">5</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_27">
+      <path d="M 86.4 264 
+L 915.84 264 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="264" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="267.798828" transform="rotate(-0 79.4 267.798828)">10</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_29">
+      <path d="M 86.4 204 
+L 915.84 204 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="204" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="207.798828" transform="rotate(-0 79.4 207.798828)">15</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_31">
+      <path d="M 86.4 144 
+L 915.84 144 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m2cae9b7dce" x="86.4" y="144" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end" x="79.4" y="147.798828" transform="rotate(-0 79.4 147.798828)">20</text>
+     </g>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="51.4125" y="306" transform="rotate(-90 51.4125 306)">Operating profit per $100 of sales → more room for a bad year</text>
+    </g>
+   </g>
+   <g id="line2d_33">
+    <path d="M 86.4 384 
+L 915.84 384 
+" clip-path="url(#p211bf2cfbf)" style="fill: none; stroke: #bb827c; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 86.4 504 
+L 86.4 108 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 86.4 504 
+L 915.84 504 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="origin-alaska">
+    <defs>
+     <path id="m56d233a259" d="M 0 3.162278 
+C 0.838646 3.162278 1.643056 2.82908 2.236068 2.236068 
+C 2.82908 1.643056 3.162278 0.838646 3.162278 0 
+C 3.162278 -0.838646 2.82908 -1.643056 2.236068 -2.236068 
+C 1.643056 -2.82908 0.838646 -3.162278 0 -3.162278 
+C -0.838646 -3.162278 -1.643056 -2.82908 -2.236068 -2.236068 
+C -2.82908 -1.643056 -3.162278 -0.838646 -3.162278 0 
+C -3.162278 0.838646 -2.82908 1.643056 -2.236068 2.236068 
+C -1.643056 2.82908 -0.838646 3.162278 0 3.162278 
+z
+" style="stroke: #8794a0"/>
+    </defs>
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m56d233a259" x="437.397613" y="358.464499" style="fill: #ffffff; stroke: #8794a0"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 439.287936 363.093231 
+Q 447.065766 382.138391 454.082733 399.320465 
+" style="fill: none; stroke: #da7445; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 454.421979 394.861215 
+L 454.082733 399.320465 
+L 450.71888 396.373519 
+" style="fill: none; stroke: #da7445; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="origin-easyjet">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m56d233a259" x="350.037508" y="301.356026" style="fill: #ffffff; stroke: #8794a0"/>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 346.754497 305.125895 
+Q 341.136762 311.576717 336.840676 316.509896 
+" style="fill: none; stroke: #d4aa42; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 340.975853 314.806867 
+L 336.840676 316.509896 
+L 337.959359 312.179936 
+" style="fill: none; stroke: #d4aa42; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="origin-jetblue">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m56d233a259" x="675.567701" y="432.730964" style="fill: #ffffff; stroke: #8794a0"/>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 676.70137 437.603443 
+Q 678.085633 443.552967 679.013842 447.542386 
+" style="fill: none; stroke: #b2393b; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 680.055352 443.193218 
+L 679.013842 447.542386 
+L 676.159414 444.099678 
+" style="fill: none; stroke: #b2393b; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #32796e" x="107.136" y="128.4" transform="rotate(-0 107.136 128.4)">HEALTHIER DIRECTION ↖</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #a64b46" x="107.136" y="489.6" transform="rotate(-0 107.136 489.6)">Operating loss: no operating-profit cushion for interest</text>
+   </g>
+   <g id="point-delta">
+    <defs>
+     <path id="m4126b501ef" d="M 0 5.244044 
+C 1.390737 5.244044 2.7247 4.691499 3.708099 3.708099 
+C 4.691499 2.7247 5.244044 1.390737 5.244044 0 
+C 5.244044 -1.390737 4.691499 -2.7247 3.708099 -3.708099 
+C 2.7247 -4.691499 1.390737 -5.244044 0 -5.244044 
+C -1.390737 -5.244044 -2.7247 -4.691499 -3.708099 -3.708099 
+C -4.691499 -2.7247 -5.244044 -1.390737 -5.244044 0 
+C -5.244044 1.390737 -4.691499 2.7247 -3.708099 3.708099 
+C -2.7247 4.691499 -1.390737 5.244044 0 5.244044 
+z
+" style="stroke: #ffffff; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="345.315849" y="273.741809" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-alaska">
+    <defs>
+     <path id="m1b3676474b" d="M 0 5.244044 
+C 1.390737 5.244044 2.7247 4.691499 3.708099 3.708099 
+C 4.691499 2.7247 5.244044 1.390737 5.244044 0 
+C 5.244044 -1.390737 4.691499 -2.7247 3.708099 -3.708099 
+C 2.7247 -4.691499 1.390737 -5.244044 0 -5.244044 
+C -1.390737 -5.244044 -2.7247 -4.691499 -3.708099 -3.708099 
+C -4.691499 -2.7247 -5.244044 -1.390737 -5.244044 0 
+C -5.244044 1.390737 -4.691499 2.7247 -3.708099 3.708099 
+C -2.7247 4.691499 -1.390737 5.244044 0 5.244044 
+z
+" style="stroke: #ffffff; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m1b3676474b" x="457.111836" y="406.737667" style="fill: #da7445; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-iag">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="431.612854" y="202.480715" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-ryanair">
+    <defs>
+     <path id="m479efce3e5" d="M 0 -7.582875 
+L -1.702462 -2.343237 
+L -7.211743 -2.343237 
+L -2.754641 0.895037 
+L -4.457102 6.134675 
+L -0 2.896401 
+L 4.457102 6.134675 
+L 2.754641 0.895037 
+L 7.211743 -2.343237 
+L 1.702462 -2.343237 
+z
+" style="stroke: #ffffff; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m479efce3e5" x="164.707205" y="200.714809" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-turkish">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="482.494397" y="273.292829" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-qatar">
+    <defs>
+     <path id="mbc5547b184" d="M 0 5.244044 
+C 1.390737 5.244044 2.7247 4.691499 3.708099 3.708099 
+C 4.691499 2.7247 5.244044 1.390737 5.244044 0 
+C 5.244044 -1.390737 4.691499 -2.7247 3.708099 -3.708099 
+C 2.7247 -4.691499 1.390737 -5.244044 0 -5.244044 
+C -1.390737 -5.244044 -2.7247 -4.691499 -3.708099 -3.708099 
+C -4.691499 -2.7247 -5.244044 -1.390737 -5.244044 0 
+C -5.244044 1.390737 -4.691499 2.7247 -3.708099 3.708099 
+C -2.7247 4.691499 -1.390737 5.244044 0 5.244044 
+z
+" style="stroke: #ffffff; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="410.935191" y="165.264148" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-korean">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="548.95569" y="331.025598" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-easyjet">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="331.578739" y="322.552157" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-qantas">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="439.576092" y="257.718675" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-airchina">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m1b3676474b" x="771.995709" y="386.723502" style="fill: #da7445; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-eastern">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="728.649228" y="350.788861" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-cathay">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="432.491899" y="235.415652" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-afklm">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="494.154554" y="311.215439" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-lufthansa">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="397.628532" y="330.389878" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-united">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="507.315195" y="288.255967" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-southwest">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="299.782224" y="365.698322" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-jetblue">
+    <defs>
+     <path id="m61245d689e" d="M 0 5.244044 
+C 1.390737 5.244044 2.7247 4.691499 3.708099 3.708099 
+C 4.691499 2.7247 5.244044 1.390737 5.244044 0 
+C 5.244044 -1.390737 4.691499 -2.7247 3.708099 -3.708099 
+C 2.7247 -4.691499 1.390737 -5.244044 0 -5.244044 
+C -1.390737 -5.244044 -2.7247 -4.691499 -3.708099 -3.708099 
+C -4.691499 -2.7247 -5.244044 -1.390737 -5.244044 0 
+C -5.244044 1.390737 -4.691499 2.7247 -3.708099 3.708099 
+C -2.7247 4.691499 -1.390737 5.244044 0 5.244044 
+z
+" style="stroke: #ffffff; stroke-width: 1.1"/>
+    </defs>
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m61245d689e" x="680.829467" y="455.345891" style="fill: #b2393b; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-singapore">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="340.621114" y="245.153884" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-canada">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="470.894531" y="334.759878" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-american">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="690.111853" y="351.777717" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-latam">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#mbc5547b184" x="561.783231" y="190.64729" style="fill: #d4aa42; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="point-southern">
+    <g clip-path="url(#p211bf2cfbf)">
+     <use xlink:href="#m4126b501ef" x="792.54938" y="320.904135" style="fill: #32857d; stroke: #ffffff; stroke-width: 1.1"/>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 329.844748 281.268152 
+Q 336.679454 277.943221 343.514161 274.61829 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-delta">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="300.315849" y="291.741809" transform="rotate(-0 300.315849 291.741809)">Delta</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 462.121173 407.21231 
+Q 460.612012 407.069315 459.102852 406.926319 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-alaska">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="466.111836" y="411.737667" transform="rotate(-0 466.111836 411.737667)">Alaska</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 435.833956 200.305226 
+Q 434.611732 200.935141 433.389509 201.565055 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-iag">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="439.612854" y="196.480715" transform="rotate(-0 439.612854 196.480715)">IAG</text>
+   </g>
+   <g id="patch_12">
+    <path d="M 171.980188 197.849569 
+Q 169.272352 198.916339 166.564515 199.983109 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-ryanair">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="172.707205" y="192.714809" transform="rotate(-0 172.707205 192.714809)">Ryanair</text>
+   </g>
+   <g id="patch_13">
+    <path d="M 488.522982 272.287638 
+Q 486.496282 272.625564 484.469583 272.963491 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-turkish">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="492.494397" y="271.292829" transform="rotate(-0 492.494397 271.292829)">Turkish</text>
+   </g>
+   <g id="patch_14">
+    <path d="M 415.076479 163.651563 
+Q 413.938029 164.094866 412.79958 164.538169 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-qatar">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="418.935191" y="159.264148" transform="rotate(-0 418.935191 159.264148)">Qatar</text>
+   </g>
+   <g id="patch_15">
+    <path d="M 554.968281 331.596992 
+Q 552.958702 331.406016 550.949122 331.21504 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-korean">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="558.95569" y="337.025598" transform="rotate(-0 558.95569 337.025598)">Korean Air</text>
+   </g>
+   <g id="patch_16">
+    <path d="M 316.991972 320.33237 
+Q 323.297116 321.291875 329.602261 322.25138 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-easyjet">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="276.578739" y="319.552157" transform="rotate(-0 276.578739 319.552157)">easyJet</text>
+   </g>
+   <g id="patch_17">
+    <path d="M 424.170895 257.057098 
+Q 430.874939 257.345004 437.578983 257.632909 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-qantas">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="384.576092" y="258.718675" transform="rotate(-0 384.576092 258.718675)">Qantas</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 776.0236 387.431419 
+Q 774.994993 387.250637 773.966386 387.069856 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-airchina">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="779.995709" y="394.723502" transform="rotate(-0 779.995709 394.723502)">Air China</text>
+   </g>
+   <g id="patch_19">
+    <path d="M 734.653181 351.110242 
+Q 732.64942 351.002984 730.645659 350.895726 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-eastern">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="738.649228" y="355.788861" transform="rotate(-0 738.649228 355.788861)">China Eastern</text>
+   </g>
+   <g id="patch_20">
+    <path d="M 416.817009 230.540687 
+Q 423.699648 232.68122 430.582287 234.821753 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-cathay">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="377.491899" y="226.415652" transform="rotate(-0 377.491899 226.415652)">Cathay</text>
+   </g>
+   <g id="patch_21">
+    <path d="M 502.165187 312.093857 
+Q 499.155332 311.763807 496.145478 311.433757 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-afklm">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="506.154554" y="319.215439" transform="rotate(-0 506.154554 319.215439)">Air France-KLM</text>
+   </g>
+   <g id="patch_22">
+    <path d="M 382.815454 337.887502 
+Q 389.330532 334.589902 395.845611 331.292302 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-lufthansa">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="342.628532" y="348.389878" transform="rotate(-0 342.628532 348.389878)">Lufthansa</text>
+   </g>
+   <g id="patch_23">
+    <path d="M 517.321021 287.401639 
+Q 513.312339 287.743913 509.303657 288.086186 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-united">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="521.315195" y="288.255967" transform="rotate(-0 521.315195 288.255967)">United</text>
+   </g>
+   <g id="patch_24">
+    <path d="M 291.259086 363.806592 
+Q 294.544739 364.53585 297.830392 365.265108 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-southwest">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="234.782224" y="359.698322" transform="rotate(-0 234.782224 359.698322)">Southwest</text>
+   </g>
+   <g id="patch_25">
+    <path d="M 686.834609 455.433421 
+Q 684.833383 455.404251 682.832158 455.375082 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-jetblue">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="690.829467" y="458.345891" transform="rotate(-0 690.829467 458.345891)">JetBlue</text>
+   </g>
+   <g id="patch_26">
+    <path d="M 317.061165 242.208323 
+Q 327.847492 243.556874 338.633819 244.905424 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-singapore">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="262.621114" y="241.153884" transform="rotate(-0 262.621114 241.153884)">Singapore</text>
+   </g>
+   <g id="patch_27">
+    <path d="M 488.616216 347.024167 
+Q 480.578506 341.461671 472.540796 335.899176 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-canada">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="472.894531" y="357.759878" transform="rotate(-0 472.894531 357.759878)">Air Canada</text>
+   </g>
+   <g id="patch_28">
+    <path d="M 678.625973 348.672908 
+Q 683.402876 349.964178 688.17978 351.255448 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-american">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="627.111853" y="343.777717" transform="rotate(-0 627.111853 343.777717)">American</text>
+   </g>
+   <g id="patch_29">
+    <path d="M 565.869265 189.411259 
+Q 564.781917 189.740183 563.694569 190.069107 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-latam">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="569.783231" y="184.64729" transform="rotate(-0 569.783231 184.64729)">LATAM †</text>
+   </g>
+   <g id="patch_30">
+    <path d="M 799.61263 319.654945 
+Q 797.065652 320.105397 794.518675 320.55585 
+" style="fill: none; stroke: #c0c8cb; stroke-width: 0.6; stroke-linecap: round"/>
+   </g>
+   <g id="label-southern">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="802.54938" y="314.904135" transform="rotate(-0 802.54938 314.904135)">China Southern</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="944.64" y="123.84" transform="rotate(-0 944.64 123.84)">All 24 groups visible</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 146.905625)">22 on numeric axes</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 163.44)">2 await comparable debt</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #586b78" x="944.64" y="234.72" transform="rotate(-0 944.64 234.72)">NOT PLACED</text>
+   </g>
+   <g id="label-ana">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="944.64" y="274.32" transform="rotate(-0 944.64 274.32)">ANA</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 288.058047)">Margin 8.6%</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 300.06)">2026-03-31</text>
+   </g>
+   <g id="label-emirates">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243d50" x="944.64" y="333.72" transform="rotate(-0 944.64 333.72)">Emirates Group</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 347.458047)">Margin 16.1%</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 359.46)">2026-03-31</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #32796e" transform="translate(944.64 385.91125)">Ryanair ★</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #32796e" transform="translate(944.64 400.91125)">Stronger baseline reference;</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #32796e" transform="translate(944.64 416.88)">not a current all-clear.</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 466.08)">† LATAM: margin falling.</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 482.04875)">Latest debt reconciliation</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #586b78" transform="translate(944.64 496.08)">prevents a complete arrow.</text>
+   </g>
+  </g>
+  <g id="text_28">
+   <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #203b4d" x="86.4" y="36" transform="rotate(-0 86.4 36)">Who has room for a bad year?</text>
+  </g>
+  <g id="text_29">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526b7b" x="86.4" y="68.4" transform="rotate(-0 86.4 68.4)">Provisional screen | Annual baseline plus three complete interim arrows | Research cutoff: 25 October 2026</text>
+  </g>
+  <g id="text_30">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #526b7b" transform="translate(86.4 614)">Arrows: annual baseline → matched trailing earnings and new balance sheet. Four margin trends assessed; 20 remain unknown.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #526b7b" transform="translate(86.4 630)">Colours flag evidence, not default probabilities. Positive cash/earnings ≠ verified healthy. Capex gaps can reflect investment, not distress.</text>
+  </g>
+  <g id="text_31">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #526b7b" transform="translate(86.4 658.925156)">Fiscal dates differ (June 2025–September 2026). Lease accounting, asset values and cash-flow classifications limit comparability.</text>
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #526b7b" transform="translate(86.4 673.2)">EBITDAR and liquidity-based credit mapping still need reconciled inputs. Sources and individual dates: risk_map.json and the evidence register.</text>
+  </g>
+  <g id="legend_1">
+   <g id="line2d_34">
+    <path d="M 87.336 564.096875 
+L 97.336 564.096875 
+L 107.336 564.096875 
+" style="fill: none; stroke: #ffffff; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="m9fc3b1f214" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g>
+     <use xlink:href="#m9fc3b1f214" x="97.336" y="564.096875" style="fill: #b2393b; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="115.336" y="567.596875" transform="rotate(-0 115.336 567.596875)">Serious warning signs</text>
+   </g>
+   <g id="line2d_35">
+    <path d="M 87.336 579.097656 
+L 97.336 579.097656 
+L 107.336 579.097656 
+" style="fill: none; stroke: #ffffff; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="md5510d2e60" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g>
+     <use xlink:href="#md5510d2e60" x="97.336" y="579.097656" style="fill: #da7445; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="115.336" y="582.597656" transform="rotate(-0 115.336 582.597656)">Earnings fall short</text>
+   </g>
+   <g id="line2d_36">
+    <path d="M 244.675063 564.096875 
+L 254.675063 564.096875 
+L 264.675063 564.096875 
+" style="fill: none; stroke: #ffffff; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="m66381dc922" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g>
+     <use xlink:href="#m66381dc922" x="254.675063" y="564.096875" style="fill: #d4aa42; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="272.675063" y="567.596875" transform="rotate(-0 272.675063 567.596875)">Cash shortfall or profit squeeze</text>
+   </g>
+   <g id="line2d_37">
+    <path d="M 244.675063 579.097656 
+L 254.675063 579.097656 
+L 264.675063 579.097656 
+" style="fill: none; stroke: #ffffff; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="m226fca281e" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g>
+     <use xlink:href="#m226fca281e" x="254.675063" y="579.097656" style="fill: #32857d; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="272.675063" y="582.597656" transform="rotate(-0 272.675063 582.597656)">Profits and cash: positive signs</text>
+   </g>
+   <g id="line2d_38">
+    <path d="M 449.356313 564.096875 
+L 459.356313 564.096875 
+L 469.356313 564.096875 
+" style="fill: none; stroke: #ffffff; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="m6bc253ce6e" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #ffffff"/>
+    </defs>
+    <g>
+     <use xlink:href="#m6bc253ce6e" x="459.356313" y="564.096875" style="fill: #8b98a6; stroke: #ffffff"/>
+    </g>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="477.356313" y="567.596875" transform="rotate(-0 477.356313 567.596875)">Not enough information</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p211bf2cfbf">
+   <rect x="86.4" y="108" width="829.44" height="396"/>
+  </clipPath>
+ </defs>
+</svg>
+</div></section>
+<div class="split"><section><h2>Airlines in this view</h2><div class="scroll"><table id="airlines"><thead><tr><th>Airline / plotted date</th><th>What we see</th><th>Direction</th></tr></thead><tbody></tbody></table></div></section><section id="detail" aria-live="polite"></section></div>
+<section><h2>Seven ways the plan can go wrong</h2><p class="muted">Cells describe exposure and evidence, not severity. Groups overlap. “Not assessed” is a research gap.</p><div class="scroll"><table id="matrix"></table></div><p><small>O observed dated impact · D disclosed exposure · I author inference · C calculated screen · M dated hedge evidence · H historical / settled event · ? not assessed. Hedging is not guaranteed protection; reporting currency is not net FX exposure.</small></p></section>
+<section><h2>Why these five wider economic risks?</h2><p>These are the five wider economic problems we are tracking, alongside staffing and aircraft availability. They are our research priorities, not an official ranking.</p><div id="macro" class="context"></div></section>
+</main><footer>The chart compares borrowing with recorded asset values, and operating profit with sales. Accounting and reporting dates differ. We still need to check cash available for repayments and each loan agreement before drawing firm conclusions about survival. Source links are included with each airline.</footer>
+<script id="data" type="application/json">{"metadata": {"research_cutoff": "2026-10-25", "status": "Provisional financial screen and exposure register; not default probabilities or verified current credit ratings", "macro_selection": "Author selection of five present macro transmission channels, informed by dated IATA and IMF research; not an official ranked list. Labour and parts are separate operational overlays.", "macro_issues": [{"id": "fuel", "name": "Fuel price and physical availability", "source_date": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "mechanism": "Jet-fuel prices, refinery/crack spreads and physical availability affect both costs and capacity. Hedges offer dated price protection; they do not assure supply.", "monitor": "Fuel expense/revenue; hedge horizon and instrument; pricing recovery; physical supply contingency."}, {"id": "geopolitics", "name": "Conflict, airspace and network disruption", "source_date": "2026-09-30", "source_url": "https://www.iata.org/en/pressroom/2026-releases/09-30-air-passenger-demand-slips-august/", "mechanism": "Disrupted hubs and airspace can remove revenue, lengthen flights and consume more fuel. Geographic exposure is not financial vulnerability.", "monitor": "Affected capacity and revenue; rerouting cost; insurance; duration; alternative hubs."}, {"id": "demand", "name": "Demand, trade and pricing pressure", "source_date": "2026-10-13", "source_url": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026", "mechanism": "Real-income pressure and trade friction can weaken passenger demand or cargo flows. Premium, leisure and cargo businesses respond differently.", "monitor": "Forward bookings, yields, load factor, cargo contribution and unit revenue against unit cost."}, {"id": "financing", "name": "Interest rates and refinancing access", "source_date": "2026-10-13", "source_url": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026", "mechanism": "Inflation and market volatility can raise funding costs or constrain credit. Maturity timing and collateral determine who needs to refinance into that market.", "monitor": "Cash interest, floating debt, next 24-month maturities, covenants and committed available facilities."}, {"id": "fx", "name": "Currency mismatch and dollar-linked costs", "source_date": "2026-06", "source_url": "https://www.iata.org/en/iata-repository/publications/economic-reports/global-outlook-for-air-transport-june-2026/", "mechanism": "Dollar-linked fuel, aircraft and debt can create a mismatch with local-currency receipts. Reporting currency alone cannot establish its size or direction.", "monitor": "Net cash exposure by currency, matching revenues/debt, hedges and currency sensitivity."}], "operational_evidence": [{"airline_id": "jetblue", "issue": "labour", "group": "Bargaining / cost exposure", "evidence_level": "disclosed", "as_of": "2026-06-30", "note": "Union negotiations disclosed; this is not evidence of a current staff shortage or strike.", "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "source_locator": "Note 7: labor unions and non-unionized crewmembers"}, {"airline_id": "jetblue", "issue": "parts", "group": "Engine groundings", "evidence_level": "observed", "as_of": "2026-06-30", "note": "Four aircraft grounded for lack of engines; dated operational constraint, not an October fleet count.", "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "source_locator": "MD&A: Pratt & Whitney"}, {"airline_id": "iag", "issue": "labour", "group": "Skills / third-party disruption", "evidence_level": "disclosed", "as_of": "2025-12-31", "note": "Licensed staff availability, industrial unrest and third-party resources are disclosed risks; no quantified group-wide shortage extracted.", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "2025 annual results PDF p23: principal risks"}, {"airline_id": "iag", "issue": "parts", "group": "Engine / component availability", "evidence_level": "disclosed", "as_of": "2025-12-31", "note": "Delivery delays and engine/component availability affect schedules; current grounded fleet and financial impact not extracted.", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "2025 annual results PDF p23: critical third parties"}, {"airline_id": "cathay", "issue": "parts", "group": "Engine groundings", "evidence_level": "observed", "as_of": "2025-12-31", "note": "HK Express engine groundings affected earnings. Subsidiary exposure must not be described as the entire Cathay fleet.", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "2025 annual results PDF p7: HK Express"}, {"airline_id": "ryanair", "issue": "parts", "group": "Delivery delays / spare engines", "evidence_level": "observed", "as_of": "2026-03-31", "note": "FY26 delivery delays affected 29 aircraft; all 210 Gamechangers delivered by year-end. Spare engines are a mitigation, not proof that future supply risk is absent.", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "FY26 results p1"}, {"airline_id": "ryanair", "issue": "labour", "group": "ATC / external labour exposure", "evidence_level": "disclosed", "as_of": "2026-05-18", "note": "European ATC strikes are a disclosed external disruption risk; not a claim of an internal Ryanair labour shortage.", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "FY26 results outlook"}, {"airline_id": "qantas", "issue": "parts", "group": "Parts supply constraints", "evidence_level": "observed", "as_of": "2025-06-30", "note": "Aircraft-parts constraints affected Qantas Domestic. Older annual evidence requires an interim refresh.", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "FY25 annual report PDF p23: Qantas Domestic"}, {"airline_id": "qantas", "issue": "labour", "group": "Wage / training costs", "evidence_level": "observed", "as_of": "2025-06-30", "note": "Labour cost and fleet-transition training pressures disclosed; distinguish costs from unfilled jobs.", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "FY25 annual report PDF pp23\u201324"}, {"airline_id": "canada", "issue": "labour", "group": "Past disruption / wage settlement", "evidence_level": "historical", "as_of": "2026-02", "note": "2025 labour disruption was followed by arbitration settling wage terms in February 2026. Historical event, not a claim of an ongoing strike.", "source_url": "https://content.presspage.com/uploads/3167/5101b9bd-8766-4720-9034-db9245b8c26c/2025_ar_en_final.pdf", "source_locator": "2025 annual report leadership message and labour relations"}, {"airline_id": "lufthansa", "issue": "labour", "group": "Strike / bargaining exposure", "evidence_level": "observed", "as_of": "2026-03-31", "note": "Q1 report records a February pilot strike and a March ground-staff wage settlement. These are dated events, not an October strike forecast.", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/interims-reports/LH-QR-2026-1-e.pdf", "source_locator": "Q1 2026 interim: collective bargaining"}, {"airline_id": "southwest", "issue": "parts", "group": "Supplier / certification dependence", "evidence_level": "disclosed", "as_of": "2025-12-31", "note": "Boeing deliveries and MAX 7 certification are disclosed dependencies; neither proves current grounded aircraft or a parts shortage.", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "FY25 results: risk factors"}, {"airline_id": "southwest", "issue": "labour", "group": "Staff availability risk", "evidence_level": "disclosed", "as_of": "2025-12-31", "note": "Retention of qualified employees is a disclosed risk; an actual staffing shortage is not established.", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "FY25 results: risk factors"}, {"airline_id": "alaska", "issue": "labour", "group": "Labour cost / benefits", "evidence_level": "disclosed", "as_of": "2025-12-31", "note": "Flight-attendant benefit costs disclosed. No current shortage or strike inferred.", "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf", "source_locator": "FY25 results: labour and other special items"}], "financial_overrides": {"jetblue": {"status": "distress", "as_of": "2026-04-03", "source_url": "https://www.fitchratings.com/research/corporate-finance/fitch-downgrades-jetblue-to-ccc-from-b-affirms-downgrades-certain-eetc-ratings-03-04-2026", "note": "Fitch downgraded JetBlue to CCC+ on 3 April 2026. This is dated external distress evidence, not a newly verified October rating."}}}, "airlines": [{"airline_id": "delta", "entity": "Delta Air Lines", "label": "Delta", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 24.972593459382892, "annual_y": 9.188182564232056, "x": 24.972593459382892, "y": 9.188182564232056, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 3843, "latest_cash_gap": 3843, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 15.496180796666877, "source_urls": ["https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "label": "Alaska", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 33.853936447129314, "annual_y": 2.1279584240466325, "x": 35.755385420134104, "y": -1.8948056190787324, "point_date": "2026-09-30", "arrow": true, "latest_margin": -1.8948056190787324, "margin_change_pp": -4.022764043125365, "trend": "Margin falling", "trend_date": "2026-09-30", "status": "earnings_pressure", "status_label": "Earnings fall short", "annual_cfo_less_capex": -339, "latest_cash_gap": -210, "cash_gap_basis": "Current year to date", "fuel_to_revenue_pct": 20.21911651099094, "source_urls": ["https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf"], "interim_source": "https://www.sec.gov/Archives/edgar/data/766421/000076642126000046/ex99110202026earningsrelea.htm", "distress_evidence": null, "placement_note": "Matched TTM earnings and contemporaneous balance sheet"}, {"airline_id": "iag", "entity": "International Airlines Group", "label": "IAG", "currency": "EUR", "annual_date": "2025-12-31", "annual_x": 33.29599290531868, "annual_y": 15.126607051455755, "x": 33.29599290531868, "y": 15.126607051455755, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 3146, "latest_cash_gap": 3146, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 20.18787824044802, "source_urls": ["https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "label": "Ryanair", "currency": "EUR", "annual_date": "2026-03-31", "annual_x": 7.552778298232199, "annual_y": 15.273765946359758, "x": 7.552778298232199, "y": 15.273765946359758, "point_date": "2026-03-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 1802.5, "latest_cash_gap": 1802.5, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 34.85908017729972, "source_urls": ["https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "label": "Turkish", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 38.203549127738555, "annual_y": 9.225597609561753, "x": 38.203549127738555, "y": 9.225597609561753, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 2281, "latest_cash_gap": 2281, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 25.20750332005312, "source_urls": ["https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "label": "Qatar", "currency": "QAR", "annual_date": "2026-03-31", "annual_x": 31.30161954143632, "annual_y": 18.227987706231367, "x": 31.30161954143632, "y": 18.227987706231367, "point_date": "2026-03-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": -2423.101999999999, "latest_cash_gap": -2423.101999999999, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 24.707667575552154, "source_urls": ["https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "korean", "entity": "Korean Air", "label": "Korean Air", "currency": "KRW", "annual_date": "2025-12-31", "annual_x": 44.61378184755202, "annual_y": 4.41453349149049, "x": 44.61378184755202, "y": 4.41453349149049, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": -220929, "latest_cash_gap": -220929, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 26.726728012424868, "source_urls": ["https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "easyjet", "entity": "easyJet", "label": "easyJet", "currency": "GBP", "annual_date": "2025-09-30", "annual_x": 25.428000347614496, "annual_y": 6.886997823075401, "x": 23.647640731726465, "y": 5.120653619608588, "point_date": "2026-03-31", "arrow": true, "latest_margin": 5.120653619608588, "margin_change_pp": -1.7663442034668124, "trend": "Margin falling", "trend_date": "2026-03-31", "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": 624, "latest_cash_gap": 244, "cash_gap_basis": "Trailing twelve months", "fuel_to_revenue_pct": 22.293686918662182, "source_urls": ["https://s203.q4cdn.com/522538739/files/doc_financials/2025/ar/easyJetARA25_DIGITAL_sm.pdf"], "interim_source": "https://data.fca.org.uk/artefacts/NSM/MFN/b5400e4e-e8f2-48a1-aadd-fdecdb855799.html", "distress_evidence": null, "placement_note": "Matched TTM earnings and contemporaneous balance sheet"}, {"airline_id": "qantas", "entity": "Qantas Group", "label": "Qantas", "currency": "AUD", "annual_date": "2025-06-30", "annual_x": 34.06405206370954, "annual_y": 10.52344373084834, "x": 34.06405206370954, "y": 10.52344373084834, "point_date": "2025-06-30", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 448, "latest_cash_gap": 448, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 21.000713596104603, "source_urls": ["https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "airchina", "entity": "Air China", "label": "Air China", "currency": "CNY", "annual_date": "2025-12-31", "annual_x": 66.12612930413448, "annual_y": -0.22695851149262658, "x": 66.12612930413448, "y": -0.22695851149262658, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "earnings_pressure", "status_label": "Earnings fall short", "annual_cfo_less_capex": 18812.954, "latest_cash_gap": 18812.954, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 29.18129708242218, "source_urls": ["https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "label": "China Eastern", "currency": "CNY", "annual_date": "2025-12-31", "annual_x": 61.94533444895682, "annual_y": 2.7675949149998926, "x": 61.94533444895682, "y": 2.7675949149998926, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 17148, "latest_cash_gap": 17148, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 31.2202999835645, "source_urls": ["https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "label": "Cathay", "currency": "HKD", "annual_date": "2025-12-31", "annual_x": 33.38077729015933, "annual_y": 12.382029015295549, "x": 33.38077729015933, "y": 12.382029015295549, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 15551, "latest_cash_gap": 15551, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 26.84343045064488, "source_urls": ["https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "afklm", "entity": "Air France-KLM", "label": "Air France-KLM", "currency": "EUR", "annual_date": "2025-12-31", "annual_x": 39.32817847635949, "annual_y": 6.065380070894053, "x": 39.32817847635949, "y": 6.065380070894053, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 606, "latest_cash_gap": 606, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 19.40800436271094, "source_urls": ["https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "label": "Lufthansa", "currency": "EUR", "annual_date": "2025-12-31", "annual_x": 30.01818407240567, "annual_y": 4.4675101649114835, "x": 30.01818407240567, "y": 4.4675101649114835, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": -195, "latest_cash_gap": -195, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 18.362502209763367, "source_urls": ["https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "ana", "entity": "ANA Holdings", "label": "ANA", "currency": "JPY", "annual_date": "2026-03-31", "annual_x": null, "annual_y": 8.563097596793993, "x": null, "y": 8.563097596793993, "point_date": "2026-03-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 181159, "latest_cash_gap": 181159, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": null, "source_urls": ["https://www.ana.co.jp/group/en/investors/irdata/annual/pdf/26fr/26_F_00.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Debt/lease comparison incomplete; not placed on numeric axes"}, {"airline_id": "united", "entity": "United Airlines Holdings", "label": "United", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 40.5975303474257, "annual_y": 7.97866937531742, "x": 40.5975303474257, "y": 7.97866937531742, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 2557, "latest_cash_gap": 2557, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 19.292364990689013, "source_urls": ["https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "label": "Southwest", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 20.580847183510546, "annual_y": 1.5251398638777038, "x": 20.580847183510546, "y": 1.5251398638777038, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": -831, "latest_cash_gap": -831, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 18.67227309981114, "source_urls": ["https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "label": "JetBlue", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 56.825588412794204, "annual_y": -4.060913705583756, "x": 57.33308899883941, "y": -5.945490897611281, "point_date": "2026-06-30", "arrow": true, "latest_margin": -5.945490897611281, "margin_change_pp": -1.8845771920275247, "trend": "Margin falling", "trend_date": "2026-06-30", "status": "distress", "status_label": "Serious warning signs", "annual_cfo_less_capex": -1216, "latest_cash_gap": -1129, "cash_gap_basis": "Trailing twelve months", "fuel_to_revenue_pct": 22.699183403222246, "source_urls": ["https://d18rn0p25nwr6d.cloudfront.net/CIK-0001158463/37859a3c-ec39-4df8-994a-7623189de7c3.html", "https://news.jetblue.com/latest-news/press-release-details/2026/JetBlue-Announces-Fourth-Quarter-2025-Results/default.aspx"], "interim_source": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "distress_evidence": {"status": "distress", "as_of": "2026-04-03", "source_url": "https://www.fitchratings.com/research/corporate-finance/fitch-downgrades-jetblue-to-ccc-from-b-affirms-downgrades-certain-eetc-ratings-03-04-2026", "note": "Fitch downgraded JetBlue to CCC+ on 3 April 2026. This is dated external distress evidence, not a newly verified October rating."}, "placement_note": "Matched TTM earnings and contemporaneous balance sheet"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "label": "Singapore", "currency": "SGD", "annual_date": "2026-03-31", "annual_x": 24.519783381360757, "annual_y": 11.570509696910632, "x": 24.519783381360757, "y": 11.570509696910632, "point_date": "2026-03-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 2354.1, "latest_cash_gap": 2354.1, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 24.485430269954193, "source_urls": ["https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "canada", "entity": "Air Canada", "label": "Air Canada", "currency": "CAD", "annual_date": "2025-12-31", "annual_x": 37.084734903091466, "annual_y": 4.103343465045593, "x": 37.084734903091466, "y": 4.103343465045593, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 747, "latest_cash_gap": 747, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 21.1469694260683, "source_urls": ["https://content.presspage.com/uploads/3167/5101b9bd-8766-4720-9034-db9245b8c26c/2025_ar_en_final.pdf", "https://www.aircanada.com/media/air-canada-reports-fourth-quarter-and-full-year-2025-financial-results/"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "american", "entity": "American Airlines Group", "label": "American", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 58.22838087221161, "annual_y": 2.6851902696172645, "x": 58.22838087221161, "y": 2.6851902696172645, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": -680, "latest_cash_gap": -680, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 19.618179488587483, "source_urls": ["https://americanairlines.gcs-web.com/node/43271"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "label": "LATAM", "currency": "USD", "annual_date": "2025-12-31", "annual_x": 45.85100605179183, "annual_y": 16.112725845274817, "x": 45.85100605179183, "y": 16.112725845274817, "point_date": "2025-12-31", "arrow": false, "latest_margin": 14.71800496406884, "margin_change_pp": -1.394720881205977, "trend": "Margin falling", "trend_date": "2026-06-30", "status": "watch", "status_label": "Cash shortfall or profit squeeze", "annual_cfo_less_capex": 1856.795, "latest_cash_gap": 2104.7969999999996, "cash_gap_basis": "Trailing twelve months", "fuel_to_revenue_pct": 26.249214383728447, "source_urls": ["https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm"], "interim_source": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm", "distress_evidence": null, "placement_note": "Annual point retained; newer margin trend available, but current debt reconciliation unresolved"}, {"airline_id": "southern", "entity": "China Southern Airlines", "label": "China Southern", "currency": "CNY", "annual_date": "2025-12-31", "annual_x": 68.10854356340326, "annual_y": 5.257988763058555, "x": 68.10854356340326, "y": 5.257988763058555, "point_date": "2025-12-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "positive", "status_label": "Profits and cash: positive signs", "annual_cfo_less_capex": 14944, "latest_cash_gap": 14944, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": 28.819901676762356, "source_urls": ["https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Annual baseline only; current direction not established"}, {"airline_id": "emirates", "entity": "Emirates Group", "label": "Emirates Group", "currency": "AED", "annual_date": "2026-03-31", "annual_x": null, "annual_y": 16.06143580609573, "x": null, "y": 16.06143580609573, "point_date": "2026-03-31", "arrow": false, "latest_margin": null, "margin_change_pp": null, "trend": "Not assessed", "trend_date": null, "status": "incomplete", "status_label": "Not enough information", "annual_cfo_less_capex": null, "latest_cash_gap": null, "cash_gap_basis": "Annual", "fuel_to_revenue_pct": null, "source_urls": ["https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf"], "interim_source": null, "distress_evidence": null, "placement_note": "Debt/lease comparison incomplete; not placed on numeric axes"}], "exposures": [{"airline_id": "delta", "entity": "Delta Air Lines", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "delta", "entity": "Delta Air Lines", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "delta", "entity": "Delta Air Lines", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "delta", "entity": "Delta Air Lines", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "delta", "entity": "Delta Air Lines", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "delta", "entity": "Delta Air Lines", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "delta", "entity": "Delta Air Lines", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://news.delta.com/sites/default/files/2026-01/delta-air-lines-announces-december-quarter-and-full-year-2025-results-vf.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "fuel", "group": "No open fuel hedges disclosed", "evidence_level": "disclosed", "note": "Outstanding positions at December2025: 0%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/766421/000076642126000010/alk-20251231.htm", "source_locator": "Form10-K fuel discussion"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "financing", "group": "Earnings fall short", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-09-30", "source_url": "https://www.sec.gov/Archives/edgar/data/766421/000076642126000046/ex99110202026earningsrelea.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "labour", "group": "Labour cost / benefits", "evidence_level": "disclosed", "note": "Flight-attendant benefit costs disclosed. No current shortage or strike inferred.", "as_of": "2025-12-31", "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf", "source_locator": "FY25 results: labour and other special items"}, {"airline_id": "alaska", "entity": "Alaska Air Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://news.alaskaair.com/wp-content/uploads/2026/01/Alaska-Air-Group-reports-fourth-quarter-and-full-year-2025-results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency EUR is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "labour", "group": "Skills / third-party disruption", "evidence_level": "disclosed", "note": "Licensed staff availability, industrial unrest and third-party resources are disclosed risks; no quantified group-wide shortage extracted.", "as_of": "2025-12-31", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "2025 annual results PDF p23: principal risks"}, {"airline_id": "iag", "entity": "International Airlines Group", "issue": "parts", "group": "Engine / component availability", "evidence_level": "disclosed", "note": "Delivery delays and engine/component availability affect schedules; current grounded fleet and financial impact not extracted.", "as_of": "2025-12-31", "source_url": "https://www.iairgroup.com/press-releases/2026/iag-full-year-results-2025/", "source_locator": "2025 annual results PDF p23: critical third parties"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "fuel", "group": "Dated hedge positions disclosed", "evidence_level": "mitigation", "note": "FY ending2027-03-31: 80%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-05-18", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "FY2026 results release p1"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2026-03-31", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2026-03-31", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-03-31", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency EUR is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2026-03-31", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "labour", "group": "ATC / external labour exposure", "evidence_level": "disclosed", "note": "European ATC strikes are a disclosed external disruption risk; not a claim of an internal Ryanair labour shortage.", "as_of": "2026-05-18", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "FY26 results outlook"}, {"airline_id": "ryanair", "entity": "Ryanair Holdings", "issue": "parts", "group": "Delivery delays / spare engines", "evidence_level": "observed", "note": "FY26 delivery delays affected 29 aircraft; all 210 Gamechangers delivered by year-end. Spare engines are a mitigation, not proof that future supply risk is absent.", "as_of": "2026-03-31", "source_url": "https://investor.ryanair.com/wp-content/uploads/2026/05/FY26-Ryanair-Results.pdf", "source_locator": "FY26 results p1"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "fuel", "group": "Hedge policy only", "evidence_level": "unknown", "note": "horizon unresolved: fraction not established. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Annual report PDF p29, commodity risk"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "turkish", "entity": "Turkish Airlines", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://investor.turkishairlines.com/documents/raporlar/final-31_12_2025-usd-ifrs-rapor_mzasiz.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "fuel", "group": "Hedge policy only", "evidence_level": "unknown", "note": "horizon unresolved: fraction not established. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Annual report PDF p60, note32"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "geopolitics", "group": "Gulf hub concentration", "evidence_level": "inferred", "note": "Author geographic exposure grouping: Doha/Dubai hub concentration. Route-level loss, insurance and mitigation not quantified.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency QAR is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qatar", "entity": "Qatar Airways Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://d21buns5ku92am.cloudfront.net/69647/documents/62698-1779203702-Qatar%20Airways%20Group%20Q.C.S.C%20-%20English%20-%20Consolidated%20-%20March%202026-9c5f47.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency KRW is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "korean", "entity": "Korean Air", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.koreanair.com/content/dam/koreanair/footer/about-us/inverstor-relations/ir-report/Korean_Airlines_Consolidated_Financial_Statement_2025.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "fuel", "group": "Dated hedge positions disclosed", "evidence_level": "mitigation", "note": "FY2026Q4: 79%; FY2027H1: 62%; FY2027H2: 37%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-07-23", "source_url": "https://www.investegate.co.uk/announcement/mfn/easyjet--ezj/trading-update-for-the-quarter-ended-30-june-/9682899", "source_locator": "Outlook and Fuel & FX hedging table"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-09-30", "source_url": "https://s203.q4cdn.com/522538739/files/doc_financials/2025/ar/easyJetARA25_DIGITAL_sm.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-09-30", "source_url": "https://s203.q4cdn.com/522538739/files/doc_financials/2025/ar/easyJetARA25_DIGITAL_sm.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-03-31", "source_url": "https://data.fca.org.uk/artefacts/NSM/MFN/b5400e4e-e8f2-48a1-aadd-fdecdb855799.html", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency GBP is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-09-30", "source_url": "https://s203.q4cdn.com/522538739/files/doc_financials/2025/ar/easyJetARA25_DIGITAL_sm.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-09-30", "source_url": "https://s203.q4cdn.com/522538739/files/doc_financials/2025/ar/easyJetARA25_DIGITAL_sm.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "easyjet", "entity": "easyJet", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-09-30", "source_url": "https://s203.q4cdn.com/522538739/files/doc_financials/2025/ar/easyJetARA25_DIGITAL_sm.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-06-30", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-06-30", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-06-30", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency AUD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-06-30", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "labour", "group": "Wage / training costs", "evidence_level": "observed", "note": "Labour cost and fleet-transition training pressures disclosed; distinguish costs from unfilled jobs.", "as_of": "2025-06-30", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "FY25 annual report PDF pp23\u201324"}, {"airline_id": "qantas", "entity": "Qantas Group", "issue": "parts", "group": "Parts supply constraints", "evidence_level": "observed", "note": "Aircraft-parts constraints affected Qantas Domestic. Older annual evidence requires an interim refresh.", "as_of": "2025-06-30", "source_url": "https://investor.qantas.com/FormBuilder/_Resource/_module/doLLG5ufYkCyEPjF1tpgyw/file/annual-reports/2025-Annual-Report.pdf", "source_locator": "FY25 annual report PDF p23: Qantas Domestic"}, {"airline_id": "airchina", "entity": "Air China", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "airchina", "entity": "Air China", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "airchina", "entity": "Air China", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "airchina", "entity": "Air China", "issue": "financing", "group": "Earnings fall short", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "airchina", "entity": "Air China", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency CNY is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "airchina", "entity": "Air China", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "airchina", "entity": "Air China", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042402937.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "fuel", "group": "Dated hedge positions disclosed", "evidence_level": "mitigation", "note": "horizon unresolved: fraction not established. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Annual report PDF p34, commodity price risk"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency CNY is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "eastern", "entity": "China Eastern Airlines", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042702576.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency HKD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "cathay", "entity": "Cathay Pacific", "issue": "parts", "group": "Engine groundings", "evidence_level": "observed", "note": "HK Express engine groundings affected earnings. Subsidiary exposure must not be described as the entire Cathay fleet.", "as_of": "2025-12-31", "source_url": "https://www.cathaypacific.com/content/dam/cx/about-us/investor-relations/announcements/en/2025-cx-annual-results-en.pdf", "source_locator": "2025 annual results PDF p7: HK Express"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency EUR is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "afklm", "entity": "Air France-KLM", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.airfranceklm.com/sites/default/files/2026-02/2025.12-air-france-klm-etats-financiers-consolides-et-notes-annexes.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "fuel", "group": "Dated hedge positions disclosed", "evidence_level": "mitigation", "note": "Calendar2026: 76%; Calendar2027: 29%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2025-12-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf", "source_locator": "Annual report PDF p90, fuel risk"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency EUR is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "labour", "group": "Strike / bargaining exposure", "evidence_level": "observed", "note": "Q1 report records a February pilot strike and a March ground-staff wage settlement. These are dated events, not an October strike forecast.", "as_of": "2026-03-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/interims-reports/LH-QR-2026-1-e.pdf", "source_locator": "Q1 2026 interim: collective bargaining"}, {"airline_id": "lufthansa", "entity": "Lufthansa Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://investor-relations.lufthansagroup.com/fileadmin/downloads/en/financial-reports/annual-reports/LH-AR-2025-e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2026-03-31", "source_url": "https://www.ana.co.jp/group/en/investors/data/pdf/presentations/26/2026_04_2e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2026-03-31", "source_url": "https://www.ana.co.jp/group/en/investors/data/pdf/presentations/26/2026_04_2e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-03-31", "source_url": "https://www.ana.co.jp/group/en/investors/data/pdf/presentations/26/2026_04_2e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency JPY is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2026-03-31", "source_url": "https://www.ana.co.jp/group/en/investors/data/pdf/presentations/26/2026_04_2e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://www.ana.co.jp/group/en/investors/data/pdf/presentations/26/2026_04_2e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "ana", "entity": "ANA Holdings", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://www.ana.co.jp/group/en/investors/data/pdf/presentations/26/2026_04_2e.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "united", "entity": "United Airlines Holdings", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000014/ual_12312025erex991.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "fuel", "group": "No open fuel hedges disclosed", "evidence_level": "disclosed", "note": "Outstanding positions at December2025: 0%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238026000004/R20.htm", "source_locator": "2025 Form10-K financial derivative instruments note"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "labour", "group": "Staff availability risk", "evidence_level": "disclosed", "note": "Retention of qualified employees is a disclosed risk; an actual staffing shortage is not established.", "as_of": "2025-12-31", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "FY25 results: risk factors"}, {"airline_id": "southwest", "entity": "Southwest Airlines", "issue": "parts", "group": "Supplier / certification dependence", "evidence_level": "disclosed", "note": "Boeing deliveries and MAX 7 certification are disclosed dependencies; neither proves current grounded aircraft or a parts shortage.", "as_of": "2025-12-31", "source_url": "https://investors.southwest.com/news-events/press-releases/detail/1914/southwest-airlines-reports-fourth-quarter-and-full-year-2025-results-expects-strong-2026-financial-performance-from-business-transformation", "source_locator": "FY25 results: risk factors"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "fuel", "group": "No open fuel hedges disclosed", "evidence_level": "disclosed", "note": "Outstanding positions at reporting date: 0%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-06-30", "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "source_locator": "Form10-Q Item3 p42"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://news.jetblue.com/latest-news/press-release-details/2026/JetBlue-Announces-Fourth-Quarter-2025-Results/default.aspx", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://news.jetblue.com/latest-news/press-release-details/2026/JetBlue-Announces-Fourth-Quarter-2025-Results/default.aspx", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "financing", "group": "Serious warning signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-06-30", "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://news.jetblue.com/latest-news/press-release-details/2026/JetBlue-Announces-Fourth-Quarter-2025-Results/default.aspx", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "labour", "group": "Bargaining / cost exposure", "evidence_level": "disclosed", "note": "Union negotiations disclosed; this is not evidence of a current staff shortage or strike.", "as_of": "2026-06-30", "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "source_locator": "Note 7: labor unions and non-unionized crewmembers"}, {"airline_id": "jetblue", "entity": "JetBlue Airways", "issue": "parts", "group": "Engine groundings", "evidence_level": "observed", "note": "Four aircraft grounded for lack of engines; dated operational constraint, not an October fleet count.", "as_of": "2026-06-30", "source_url": "https://www.sec.gov/Archives/edgar/data/1158463/000115846326000075/jblu-20260630.htm", "source_locator": "MD&A: Pratt & Whitney"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "fuel", "group": "Dated hedge positions disclosed", "evidence_level": "mitigation", "note": "horizon unresolved: fraction not established. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Annual report PDF p92, fuel price risk"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency SGD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "singapore", "entity": "Singapore Airlines Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://links.sgx.com/1.0.0/corporate-announcements/LYKXI99PPJMU0T2B/888804_FS-fy2526.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.aircanada.com/media/air-canada-reports-fourth-quarter-and-full-year-2025-financial-results/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.aircanada.com/media/air-canada-reports-fourth-quarter-and-full-year-2025-financial-results/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.aircanada.com/media/air-canada-reports-fourth-quarter-and-full-year-2025-financial-results/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency CAD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.aircanada.com/media/air-canada-reports-fourth-quarter-and-full-year-2025-financial-results/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "labour", "group": "Past disruption / wage settlement", "evidence_level": "historical", "note": "2025 labour disruption was followed by arbitration settling wage terms in February 2026. Historical event, not a claim of an ongoing strike.", "as_of": "2026-02", "source_url": "https://content.presspage.com/uploads/3167/5101b9bd-8766-4720-9034-db9245b8c26c/2025_ar_en_final.pdf", "source_locator": "2025 annual report leadership message and labour relations"}, {"airline_id": "canada", "entity": "Air Canada", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.aircanada.com/media/air-canada-reports-fourth-quarter-and-full-year-2025-financial-results/", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "fuel", "group": "No open fuel hedges disclosed", "evidence_level": "disclosed", "note": "Outstanding positions at reporting date: 0%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-09-30", "source_url": "https://www.sec.gov/Archives/edgar/data/6201/000000620126000065/aal-20260930.htm", "source_locator": "Form10-Q fuel discussion"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://americanairlines.gcs-web.com/node/43271", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://americanairlines.gcs-web.com/node/43271", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://americanairlines.gcs-web.com/node/43271", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://americanairlines.gcs-web.com/node/43271", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://americanairlines.gcs-web.com/node/43271", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "american", "entity": "American Airlines Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://americanairlines.gcs-web.com/node/43271", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "fuel", "group": "Dated hedge positions disclosed", "evidence_level": "mitigation", "note": "2026Q3: 45%; 2026Q4: 27%; 2027Q1: 12%; 2027Q2: 7%. Dated positions are not current guaranteed protection. Physical availability and hedge basis/expiry still matter.", "as_of": "2026-07-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000087/results-eng2q2026.htm", "source_locator": "Market risks management, fuel hedge table p6"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "financing", "group": "Cash shortfall or profit squeeze", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "fx", "group": "USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency USD is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "latam", "entity": "LATAM Airlines Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www.sec.gov/Archives/edgar/data/1047716/000104771626000011/results-eng4q2025.htm", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "geopolitics", "group": "Network / indirect exposure", "evidence_level": "inferred", "note": "Potential airspace, rerouting and network spillovers. Company-specific affected revenue and capacity have not been mapped; this is not a low-risk designation.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "demand", "group": "Passenger demand exposure", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "financing", "group": "Profits and cash: positive signs", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency CNY is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "southern", "entity": "China Southern Airlines", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2025-12-31", "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0427/2026042701655.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "fuel", "group": "Hedge protection not assessed", "evidence_level": "unknown", "note": "All airlines have fuel exposure. Absence of extracted hedge data does not mean no hedges.", "as_of": "2026-06-07", "source_url": "https://www.iata.org/en/pressroom/2026-releases/06-07-middle-east-disruptions-high-fuel-prices-halve-airline-industry-profitability", "source_locator": "Industry context; issuer hedge data pending"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "geopolitics", "group": "Gulf hub concentration", "evidence_level": "inferred", "note": "Author geographic exposure grouping: Doha/Dubai hub concentration. Route-level loss, insurance and mitigation not quantified.", "as_of": "2026-03-31", "source_url": "https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "demand", "group": "Cargo and passenger review priority", "evidence_level": "inferred", "note": "Author business-mix grouping for investigation, not a measured elasticity or exclusive group. All groups have passenger-demand exposure; cargo can benefit from diversion while volumes weaken.", "as_of": "2026-03-31", "source_url": "https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "financing", "group": "Not enough information", "evidence_level": "calculated", "note": "Financial screen only. Principal maturities, floating-rate share, collateral and covenant headroom must determine refinancing vulnerability. Cash investment gaps may finance growth.", "as_of": "2026-03-31", "source_url": "https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "fx", "group": "Non-USD reporting: check mismatch", "evidence_level": "inferred", "note": "Reporting currency AED is only a screening tag. It does not establish net FX risk, natural hedges, local-currency revenues, dollar debt or protection; no severity assigned.", "as_of": "2026-03-31", "source_url": "https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "labour", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf", "source_locator": "Issuer annual baseline / author screening inference"}, {"airline_id": "emirates", "entity": "Emirates Group", "issue": "parts", "group": "Not assessed", "evidence_level": "unknown", "note": "Issuer-specific operational evidence not extracted for this overlay. Do not interpret as low risk or no shortage.", "as_of": "2026-03-31", "source_url": "https://c.ekstatic.net/ecl/documents/annual-report/2025-2026.pdf", "source_locator": "Issuer annual baseline / author screening inference"}]}</script><script>
+'use strict';const d=JSON.parse(document.getElementById('data').textContent),names={fuel:'Fuel',geopolitics:'Geopolitics',demand:'Demand / trade',financing:'Financing',fx:'Currency',labour:'Labour',parts:'Parts / engines'},codes={unknown:'?',inferred:'I',calculated:'C',disclosed:'D',mitigation:'M',historical:'H',observed:'O'};let selected='jetblue';const byId=Object.fromEntries(d.airlines.map(r=>[r.airline_id,r])),index=Object.fromEntries(d.exposures.map(e=>[e.airline_id+'|'+e.issue,e]));const el=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const fmt=v=>Number.isFinite(v)?v.toFixed(1):'Not available';
+for(const [k,v] of Object.entries(names)){const o=document.createElement('option');o.value=k;o.textContent=v;el('lens').append(o)}
+function resetGroups(){const k=el('lens').value;el('group').innerHTML='<option value="all">All groups</option>';if(k!=='all')for(const g of [...new Set(d.exposures.filter(e=>e.issue===k).map(e=>e.group))].sort()){const o=document.createElement('option');o.value=g;o.textContent=g;el('group').append(o)}}
+function matches(r){const f=el('financial').value,k=el('lens').value,g=el('group').value,q=el('search').value.toLowerCase();if(q&&!r.entity.toLowerCase().includes(q)&&!r.label.toLowerCase().includes(q))return false;if(f==='pressure'&&!['distress','earnings_pressure'].includes(r.status))return false;if(f==='watch'&&r.status!=='watch')return false;if(f==='positive'&&r.status!=='positive')return false;if(f==='falling'&&r.trend!=='Margin falling')return false;if(f==='unknown'&&r.trend!=='Not assessed')return false;if(k!=='all'&&g!=='all'&&index[r.airline_id+'|'+k].group!==g)return false;return true}
+function choose(id){selected=id;renderDetail();render()}
+function renderDetail(){const r=byId[selected];el('detail').innerHTML='<div class="eyebrow">Selected airline</div><h2>'+esc(r.entity)+'</h2><span class="badge">'+esc(r.status_label)+'</span><div class="metrics"><div><small>Debt / recorded asset value</small><div class="metric">'+fmt(r.x)+(r.x===null?'':'%')+'</div></div><div><small>Operating profit per $100 of sales</small><div class="metric">'+fmt(r.y)+'%</div></div></div><p><b>Plotted date: '+esc(r.point_date)+'</b></p><p>'+esc(r.placement_note)+'</p><p><b>'+esc(r.trend)+'</b>'+(r.margin_change_pp===null?'':': '+fmt(r.margin_change_pp)+' percentage points, annual baseline to TTM ending '+esc(r.trend_date))+'.</p><small>Falling margin is not necessarily falling absolute profit. Cash gaps can reflect investment. No verified current covenant headroom is implied.</small><p>'+r.source_urls.map((u,i)=>'<a href="'+esc(u)+'" target="_blank" rel="noopener">Annual source '+(i+1)+'</a>').join(' · ')+(r.interim_source?' · <a href="'+esc(r.interim_source)+'" target="_blank" rel="noopener">Interim source</a>':'')+'</p>'+Object.keys(names).map(k=>{const e=index[r.airline_id+'|'+k];return '<div class="riskcard"><h3>'+names[k]+'</h3><span class="badge '+esc(e.evidence_level)+'">'+codes[e.evidence_level]+' · '+esc(e.group)+'</span><p>'+esc(e.note)+'</p><small>Evidence: '+esc(e.as_of)+' · '+esc(e.source_locator)+'</small><br><a href="'+esc(e.source_url)+'" target="_blank" rel="noopener">Source</a></div>'}).join('')}
+function render(){const rows=d.airlines.filter(matches).sort((a,b)=>a.label.localeCompare(b.label));el('count').textContent=rows.length+' / 24 groups';for(const r of d.airlines){for(const p of ['point-','label-','origin-','arrow-']){const n=el(p+r.airline_id);if(n)n.style.opacity=matches(r)?'1':'.12'}}el('airlines').querySelector('tbody').innerHTML=rows.map(r=>'<tr data-id="'+r.airline_id+'" class="'+(r.airline_id===selected?'selected':'')+'"><td><button data-id="'+r.airline_id+'">'+esc(r.label)+'</button><em>'+esc(r.point_date)+(r.x===null?' · unplaced':'')+'</em></td><td>'+esc(r.status_label)+'</td><td>'+esc(r.trend)+(r.margin_change_pp===null?'':'<em>'+fmt(r.margin_change_pp)+' pp</em>')+'</td></tr>').join('');el('matrix').innerHTML='<thead><tr><th>Airline</th>'+Object.values(names).map(n=>'<th>'+n+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr><td><button data-id="'+r.airline_id+'">'+esc(r.label)+'</button></td>'+Object.keys(names).map(k=>{const e=index[r.airline_id+'|'+k];return '<td class="'+esc(e.evidence_level)+'"><button data-id="'+r.airline_id+'">'+codes[e.evidence_level]+' · '+esc(e.group)+'</button><em>'+esc(e.as_of)+'</em></td>'}).join('')+'</tr>').join('')+'</tbody>';document.querySelectorAll('[data-id]').forEach(n=>n.onclick=()=>choose(n.dataset.id))}
+for(const r of d.airlines)for(const p of ['point-','label-']){const n=el(p+r.airline_id);if(n){n.onclick=()=>choose(r.airline_id);n.setAttribute('tabindex','0');n.setAttribute('role','button');n.setAttribute('aria-label',r.entity);n.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(r.airline_id)}}}}
+el('lens').onchange=()=>{resetGroups();render()};el('group').onchange=render;el('financial').onchange=render;el('search').oninput=render;el('reset').onclick=()=>{el('financial').value='all';el('lens').value='all';el('search').value='';resetGroups();render()};el('macro').innerHTML=d.metadata.macro_issues.map(m=>'<div class="card"><h3>'+esc(m.name)+'</h3><p>'+esc(m.mechanism)+'</p><small>Monitor: '+esc(m.monitor)+'</small><p><a href="'+esc(m.source_url)+'" target="_blank" rel="noopener">Research · '+esc(m.source_date)+'</a></p></div>').join('');renderDetail();render();
+</script></body></html>
